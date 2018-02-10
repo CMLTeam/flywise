@@ -129,16 +129,20 @@
 						<goals>
 							<goal>yarn</goal>
 						</goals>
-						<phase>generate-resources</phase>
 						<configuration>
 							<arguments>install</arguments>
 						</configuration>
+                        <phase>generate-resources</phase>
 					</execution>
 					<execution>
-						<id>webpack build</id>
-						<goals>
-							<goal>webpack</goal>
-						</goals>
+						<id>yarn build</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>build</arguments>
+                        </configuration>
+                        <phase>generate-resources</phase>
 					</execution>
 				</executions>
 				<configuration>
@@ -162,7 +166,7 @@
 							<outputDirectory>src/main/resources/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>src/main/frontend/dist/</directory>
+									<directory>src/main/frontend/build/</directory>
 									<filtering>false</filtering>
 								</resource>
 							</resources>

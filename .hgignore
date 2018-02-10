@@ -4,17 +4,20 @@ syntax: glob
 .idea
 *.iml
 
-# dependencies
+## frontend
 node_modules/
 
+# static content is generated from react sources
+src/main/resources/static/
+
 # build
-src/main/frontend/node_maven
+src/main/frontend/node_maven/
 
 # testing
-src/main/frontend/coverage
+src/main/frontend/coverage/
 
 # production
-src/main/frontend/build
+src/main/frontend/build/
 
 # misc
 .DS_Store

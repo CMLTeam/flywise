@@ -7,6 +7,9 @@ syntax: glob
 # dependencies
 node_modules/
 
+# build
+src/main/frontend/node_maven
+
 # testing
 src/main/frontend/coverage
 

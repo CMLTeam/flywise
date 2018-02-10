@@ -1,4 +1,4 @@
-package com.cmlteam.cmltemplate.model;
+package com.cmlteam.flywise.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

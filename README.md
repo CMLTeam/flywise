@@ -1,4 +1,3 @@
-# cmltemplate
+# flywise
 
-#### Usage
-Fork and use as base for your Spring Boot app @ CML
+[Flywise.world](https://flywise.world)

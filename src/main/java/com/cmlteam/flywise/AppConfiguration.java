@@ -1,4 +1,4 @@
-package com.cmlteam.cmltemplate;
+package com.cmlteam.flywise;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;

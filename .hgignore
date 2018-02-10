@@ -8,10 +8,10 @@ syntax: glob
 node_modules/
 
 # testing
-src/main/client/coverage
+src/main/frontend/coverage
 
 # production
-src/main/client/build
+src/main/frontend/build
 
 # misc
 .DS_Store

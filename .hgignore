@@ -3,3 +3,30 @@ syntax: glob
 
 .idea
 *.iml
+
+## frontend
+node_modules/
+
+# static content is generated from react sources
+src/main/resources/static/
+
+# build
+src/main/frontend/node_maven/
+
+# testing
+src/main/frontend/coverage/
+
+# production
+src/main/frontend/build/
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+

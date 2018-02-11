@@ -4,32 +4,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-	<changeSet id="spring-security" author="vgorin">
-		<sql>
-			CREATE TABLE flywise.users (
-				username VARCHAR(20) NOT NULL,
-				password VARCHAR(20) NOT NULL,
-				enabled TINYINT NOT NULL DEFAULT 1,
-				PRIMARY KEY (username)
-			);
-
-			CREATE TABLE flywise.user_roles (
-				user_role_id int(11) NOT NULL AUTO_INCREMENT,
-				username varchar(20) NOT NULL,
-				role varchar(20) NOT NULL,
-				PRIMARY KEY (user_role_id),
-				UNIQUE KEY uni_username_role (role,username),
-				KEY fk_username_idx (username),
-				CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES flywise.users (username)
-			);
-
-			INSERT INTO flywise.users(username, password, enabled) VALUES ('jack', 'jack', true);
-			INSERT INTO flywise.users(username, password, enabled) VALUES ('peter', 'peter', true);
-
-			INSERT INTO flywise.user_roles (username, role) VALUES ('jack', 'ROLE_USER');
-			INSERT INTO flywise.user_roles (username, role) VALUES ('jack', 'ROLE_ADMIN');
-			INSERT INTO flywise.user_roles (username, role) VALUES ('peter', 'ROLE_USER');
-		</sql>
+	<changeSet id="security_create_tables-DDL" author="vgorin">
+		<sqlFile path="sql/security/security_create_tables-DDL.sql"/>
+	</changeSet>
+	<changeSet id="security_fill_test_data-DML" author="vgorin">
+		<sqlFile path="sql/security/security_fill_test_data-DML.sql"/>
 	</changeSet>
 
 </databaseChangeLog>

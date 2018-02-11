@@ -1,11 +1,16 @@
 package com.cmlteam.flywise.configurations;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -24,9 +29,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery("select username,password, enabled from users where username=?")
-				.authoritiesByUsernameQuery("select username, role from user_roles where username=?");
+		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder()).usersByUsernameQuery(
+				"SELECT\n" +
+						"  a.account AS username,\n" +
+						"  a.password AS password,\n" +
+						"  1 ^ c.block_flag AS enabled\n" +
+						"FROM user_auth a\n" +
+						"INNER JOIN user_account c ON a.account = c.account\n" +
+						"WHERE a.account = ?"
+		).authoritiesByUsernameQuery(
+				"SELECT\n" +
+						"  u.account AS username,\n" +
+						"  r.role AS role\n" +
+						"FROM user_role u\n" +
+						"INNER JOIN user_roles r ON u.role_id = r.id\n" +
+						"WHERE u.account = ?"
+		);
 	}
 
 	@Override
@@ -35,6 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
 				.permitAll();
 		http.exceptionHandling().accessDeniedPage("/403");
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+		return new BCryptPasswordEncoder();
 	}
 
 }

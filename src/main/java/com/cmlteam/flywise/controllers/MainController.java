@@ -24,11 +24,6 @@ public class MainController {
         this.sampleService = sampleService;
     }
 
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    public String root() {
-//        return "forward:/index.html";
-//    }
-
     @RequestMapping(value = "/testdb", method = RequestMethod.GET)
     public String testdb() {
         return sampleService.getDbVersion();

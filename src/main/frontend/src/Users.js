@@ -10,12 +10,10 @@ class Users extends Component {
         }
     }
 
-    componentDidMount() {
-        fetch(`${API_ROOT}testjs`).then(res => {
-            return res.json()
-        }).then(json => {
-            this.setState({users: json})
-        })
+    async componentDidMount() {
+        const res = await fetch(`${API_ROOT}testjs`);
+        const json = await res.json();
+        this.setState({users: json})
     }
     
     render() {

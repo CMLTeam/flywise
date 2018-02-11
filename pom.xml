@@ -101,6 +101,83 @@
 				<artifactId>versions-maven-plugin</artifactId>
 				<version>2.5</version>
 			</plugin>
+			<!-- Front end plugin -->
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>src/main/resources/static</directory>
+						</fileset>
+						<fileset>
+							<directory>src/main/frontend/dist</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>install node and yarn</id>
+						<goals>
+							<goal>install-node-and-yarn</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					</execution>
+					<execution>
+						<id>yarn install</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+                        <phase>generate-resources</phase>
+					</execution>
+					<execution>
+						<id>yarn build</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>build</arguments>
+                        </configuration>
+                        <phase>generate-resources</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<nodeVersion>v8.9.4</nodeVersion>
+					<yarnVersion>v1.3.2</yarnVersion>
+					<workingDirectory>src/main/frontend/</workingDirectory>
+					<installDirectory>src/main/frontend/node_maven/</installDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.2</version>
+				<executions>
+					<execution>
+						<id>copy gulp dist files to static</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>src/main/resources/static</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/frontend/build/</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

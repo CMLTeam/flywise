@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=flywise # TODO rename
+APP=flywise
 USER=apps1
 SERV=prod.cmlteam.com
 

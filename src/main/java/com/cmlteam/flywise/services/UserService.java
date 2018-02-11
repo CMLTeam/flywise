@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public class UserService {
     private List<User> USERS = Arrays.asList(
-            new User(1, "Ivan", "Ivanov"),
-            new User(2, "Peter", "Petrov"),
-            new User(3, "Sidor", "Sidorov")
+            new User(1, "Ivan", "Ivanov", "i@i.com", "+1111111"),
+            new User(2, "Peter", "Petrov", "p@p.com", "+2222222"),
+            new User(3, "Sidor", "Sidorov", "s@s.com", "+3333333")
     );
 
     public List<User> listUsers() {

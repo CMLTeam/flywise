@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "", method = POST)
-    public void load(User user) {
+    public void save(User user) {
         userService.saveUser(user);
     }
 }

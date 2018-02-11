@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { API_ROOT } from './api-cfg';
+import React, {Component} from 'react';
+import {API_ROOT} from './api-cfg';
 import User from "./User";
 
 class Users extends Component {
@@ -11,7 +11,7 @@ class Users extends Component {
     }
 
     async componentDidMount() {
-        const res = await fetch(`${API_ROOT}testjs`);
+        const res = await fetch(`${API_ROOT}/user`);
         const json = await res.json();
         this.setState({users: json})
     }

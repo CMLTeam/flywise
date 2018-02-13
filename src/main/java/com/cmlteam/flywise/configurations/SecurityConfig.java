@@ -1,7 +1,5 @@
 package com.cmlteam.flywise.configurations;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -24,8 +22,12 @@ import javax.sql.DataSource;
 @EnableAutoConfiguration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private final DataSource dataSource;
+
 	@Autowired
-	DataSource dataSource;
+	public SecurityConfig(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -49,10 +51,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/home").permitAll().antMatchers("/admin").hasRole("ADMIN")
-				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
-				.permitAll();
-		http.exceptionHandling().accessDeniedPage("/403");
+		http.authorizeRequests()
+				.antMatchers("/", "/home").permitAll()
+				.antMatchers("/admin").hasRole("ADMIN")
+				.anyRequest().authenticated()
+				.and().formLogin().loginPage("/login").permitAll()
+				.and().logout().permitAll()
+				.and().exceptionHandling().accessDeniedPage("/403");
 	}
 
 	@Bean

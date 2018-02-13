@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {API_ROOT} from './api-cfg';
+import {Link} from 'react-router-dom';
 
 export default class UserViewScreen extends Component {
     constructor(props) {
@@ -24,6 +25,7 @@ export default class UserViewScreen extends Component {
                 <div><b>Lastname: </b> {this.state.user.lastName}</div>
                 <div><b>Email: </b> {this.state.user.email}</div>
                 <div><b>Phone: </b> {this.state.user.phone}</div>
+                <Link to={`/user/${this.state.userId}/edit`}>Edit</Link>
             </div>
         ) : (
             <div>Loading...</div>

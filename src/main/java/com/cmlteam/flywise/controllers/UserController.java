@@ -1,9 +1,11 @@
 package com.cmlteam.flywise.controllers;
 
+import com.cmlteam.flywise.model.ResultStatus;
 import com.cmlteam.flywise.model.User;
 import com.cmlteam.flywise.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +35,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "", method = POST)
-    public void save(User user) {
+    public ResultStatus save(@RequestBody User user) {
         userService.saveUser(user);
+        return ResultStatus.SUCCESS;
     }
 }

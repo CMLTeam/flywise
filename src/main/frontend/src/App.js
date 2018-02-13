@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import Home from "./Home";
 import Users from "./Users";
-import UserScreen from "./UserScreen";
+import UserViewScreen from "./UserViewScreen";
+import UserEditScreen from "./UserEditScreen";
 
 class App extends Component {
   render() {
@@ -21,7 +22,8 @@ class App extends Component {
                   <Switch>
                       <Route exact path='/' component={Home} />
                       <Route exact path='/users' component={Users} />
-                      <Route exact path='/user/:id' component={UserScreen} />
+                      <Route exact path='/user/:id' component={UserViewScreen} />
+                      <Route exact path='/user/:id/edit' component={UserEditScreen} />
                   </Switch>
               </div>
           </Router>

@@ -5,8 +5,10 @@ class User extends Component {
     render() {
         return (
             <div className="user">
-                <Link to={`/user/${this.props.id}`}>#{this.props.id}</Link>
+                #{this.props.id}
                 {' '}{this.props.firstName} {this.props.lastName}
+                {' '}<Link to={`/user/${this.props.id}`}>View</Link>
+                {' '}<Link to={`/user/${this.props.id}/edit`}>Edit</Link>
             </div>
         );
     }

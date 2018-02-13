@@ -7,8 +7,6 @@ export default class UserEditScreen extends Component {
         this.state = {
             userId: props.match.params.id
         };
-        this.handleOnChange = this.handleOnChange.bind(this);
-        this.handleSave = this.handleSave.bind(this);
     }
 
     async componentDidMount() {
@@ -17,7 +15,7 @@ export default class UserEditScreen extends Component {
         this.setState({user: json})
     }
 
-    handleOnChange(event) {
+    handleOnChange = (event) => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -28,9 +26,9 @@ export default class UserEditScreen extends Component {
                 [name]: value
             }
         });
-    }
+    };
 
-    async handleSave(event) {
+    handleSave = async (event) => {
         const user = this.state.user;
         const res = await fetch(`${API_ROOT}/user`, {
             method: 'post',
@@ -47,7 +45,7 @@ export default class UserEditScreen extends Component {
             // TODO
             alert(json.error)
         }
-    }
+    };
 
     render() {
         return this.state.user ? (

@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 public class ApiController {
     private final UserService userService;
     private final AppSecurityService appSecurityService;

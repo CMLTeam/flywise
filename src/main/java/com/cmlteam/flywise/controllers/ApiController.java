@@ -15,27 +15,27 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("api")
+public class ApiController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public ApiController(UserService userService) {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "", method = GET)
-    public List<User> users() {
+    @RequestMapping(value = "user", method = GET)
+    public List<User> listUsers() {
         return userService.listUsers();
     }
 
-    @RequestMapping(value = "{id}", method = GET)
-    public User load(@PathVariable long id) {
+    @RequestMapping(value = "user/{id}", method = GET)
+    public User loadUser(@PathVariable long id) {
         return userService.loadUser(id);
     }
 
-    @RequestMapping(value = "", method = POST)
-    public ResultStatus save(@RequestBody User user) {
+    @RequestMapping(value = "user", method = POST)
+    public ResultStatus saveUser(@RequestBody User user) {
         userService.saveUser(user);
         return ResultStatus.SUCCESS;
     }

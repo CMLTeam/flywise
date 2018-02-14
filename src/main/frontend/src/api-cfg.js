@@ -10,4 +10,4 @@ if (hostname === 'localhost') {
     apiRoot = process.env.REACT_APP_API_ROOT || 'http://localhost:8080';
 }
 
-export const API_ROOT = `${apiRoot}`;
+export const API_ROOT = `${apiRoot}/api`;

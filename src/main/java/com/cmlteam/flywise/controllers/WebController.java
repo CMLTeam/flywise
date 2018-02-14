@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class WebController {
 
-	@RequestMapping(value={"/","home"})
+	/*@RequestMapping(value={"/","home"})
 	public String home(){
 		return "home";
 	}
@@ -38,5 +38,10 @@ public class WebController {
 	@RequestMapping(value="/403")
 	public String Error403(){
 		return "403";
+	}*/
+
+	@RequestMapping(value = {"/user/**"})
+	public String index() {
+		return "forward:/";
 	}
 }

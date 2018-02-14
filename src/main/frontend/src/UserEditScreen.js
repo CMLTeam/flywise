@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {API_ROOT} from './api-cfg';
+import {api} from './api';
 
 export default class UserEditScreen extends Component {
     constructor(props) {
@@ -10,8 +10,7 @@ export default class UserEditScreen extends Component {
     }
 
     async componentDidMount() {
-        const res = await fetch(`${API_ROOT}/user/${this.state.userId}`);
-        const json = await res.json();
+        const json = await api.GET(`user/${this.state.userId}`);
         this.setState({user: json})
     }
 
@@ -30,15 +29,7 @@ export default class UserEditScreen extends Component {
 
     handleSave = async (event) => {
         const user = this.state.user;
-        const res = await fetch(`${API_ROOT}/user`, {
-            method: 'post',
-            headers: {
-                // 'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        });
-        const json = await res.json();
+        const json = await api.POST('user', user);
         if (json.success) {
             this.props.history.push(`/user/${this.state.userId}`)
         } else {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {API_ROOT} from './api-cfg';
+import {api} from './api';
 import {Link} from 'react-router-dom';
 
 export default class UserViewScreen extends Component {
@@ -11,8 +11,7 @@ export default class UserViewScreen extends Component {
     }
 
     async componentDidMount() {
-        const res = await fetch(`${API_ROOT}/user/${this.state.userId}`);
-        const json = await res.json();
+        const json = await api.GET(`user/${this.state.userId}`);
         this.setState({user: json})
     }
 

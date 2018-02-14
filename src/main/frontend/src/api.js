@@ -16,13 +16,16 @@ class Api {
     }
 
     async GET(url) {
-        const res = await fetch(`${this.apiRoot}/${url}`);
+        const res = await fetch(`${this.apiRoot}/${url}`, {
+            credentials: 'same-origin'
+        });
         return await res.json();
     }
 
     async POST(url, dataJson) {
         const res = await fetch(`${this.apiRoot}/${url}`, {
             method: 'post',
+            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -33,3 +36,8 @@ class Api {
 }
 
 export const api = new Api(`${apiRoot}/api`);
+
+// (async () => {
+//     let c = await api.GET('currentUser');
+//     console.info(777,c)
+// })()

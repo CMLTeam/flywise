@@ -16,7 +16,7 @@ public class WebController {
 	/*@RequestMapping(value={"/","home"})
 	public String home(){
 		return "home";
-	}
+	}*/
 
 	@PreAuthorize("hasRole('USER')")
 	@RequestMapping(value={"/welcome"})
@@ -33,10 +33,10 @@ public class WebController {
 	@RequestMapping(value={"/login"})
 	public String login(){
 		return "login";
-	}*/
+	}
 
 	@RequestMapping(value="/403")
-	public String Error403(){
+	public String error403(){
 		return "403";
 	}
 

@@ -1,5 +1,6 @@
 package com.cmlteam.flywise.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,11 +18,13 @@ public class WebController {
 		return "home";
 	}
 
+	@PreAuthorize("hasRole('USER')")
 	@RequestMapping(value={"/welcome"})
 	public String welcome(){
 		return "welcome";
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value="/admin")
 	public String admin(){
 		return "admin";
@@ -31,7 +34,6 @@ public class WebController {
 	public String login(){
 		return "login";
 	}
-
 
 	@RequestMapping(value="/403")
 	public String Error403(){

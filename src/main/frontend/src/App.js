@@ -6,6 +6,7 @@ import Home from "./Home";
 import Users from "./Users";
 import UserViewScreen from "./UserViewScreen";
 import UserEditScreen from "./UserEditScreen";
+import LoginScreen from "./LoginScreen";
 
 class App extends Component {
   render() {
@@ -15,12 +16,14 @@ class App extends Component {
                   <h2>FlyWise</h2>
                   <ul>
                       <li><Link to={'/'}>Home</Link></li>
+                      <li><Link to={'/login'}>Login</Link></li>
                       <li><Link to={'/users'}>Users</Link></li>
                   </ul>
                   <hr />
 
                   <Switch>
                       <Route exact path='/' component={Home} />
+                      <Route exact path='/login' component={LoginScreen} />
                       <Route exact path='/users' component={Users} />
                       <Route exact path='/user/:id' component={UserViewScreen} />
                       <Route exact path='/user/:id/edit' component={UserEditScreen} />

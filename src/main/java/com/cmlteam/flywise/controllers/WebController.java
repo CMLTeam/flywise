@@ -33,12 +33,12 @@ public class WebController {
 	@RequestMapping(value={"/login"})
 	public String login(){
 		return "login";
-	}
+	}*/
 
 	@RequestMapping(value="/403")
 	public String Error403(){
 		return "403";
-	}*/
+	}
 
 	@RequestMapping(value = {"/user/**"})
 	public String index() {

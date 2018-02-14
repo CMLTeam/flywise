@@ -1,4 +1,4 @@
-package com.cmlteam.flywise.configurations;
+package com.cmlteam.flywise.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.social.UserIdSource;

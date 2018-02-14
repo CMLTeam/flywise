@@ -1,4 +1,4 @@
-package com.cmlteam.flywise.configurations;
+package com.cmlteam.flywise.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,7 +19,6 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@EnableAutoConfiguration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final DataSource dataSource;

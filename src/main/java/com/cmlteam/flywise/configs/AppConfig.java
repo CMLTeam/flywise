@@ -1,4 +1,4 @@
-package com.cmlteam.flywise;
+package com.cmlteam.flywise.configs;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
@@ -26,7 +26,7 @@ import java.util.concurrent.Executors;
 @EnableAutoConfiguration(exclude = {JacksonAutoConfiguration.class})
 @EnableScheduling
 @EnableAsync
-public class AppConfiguration implements AsyncConfigurer, SchedulingConfigurer {
+public class AppConfig implements AsyncConfigurer, SchedulingConfigurer {
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();

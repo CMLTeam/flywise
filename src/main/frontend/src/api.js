@@ -1,6 +1,7 @@
 let apiRoot;
 
 const hostname = window && window.location && window.location.hostname;
+const port = window && window.location && window.location.port;
 
 if (hostname === 'localhost') {
     apiRoot = 'http://localhost:8080';
@@ -17,7 +18,7 @@ class Api {
 
     async GET(url) {
         const res = await fetch(`${this.apiRoot}/${url}`, {
-            credentials: 'same-origin'
+            credentials: port === '3000' ? 'include' : 'same-origin'
         });
         return await res.json();
     }
@@ -25,7 +26,7 @@ class Api {
     async POST(url, dataJson) {
         const res = await fetch(`${this.apiRoot}/${url}`, {
             method: 'post',
-            credentials: 'same-origin',
+            credentials: port === '3000' ? 'include' : 'same-origin',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -37,7 +38,7 @@ class Api {
 
 export const api = new Api(`${apiRoot}/api`);
 
-// (async () => {
-//     let c = await api.GET('currentUser');
-//     console.info(777,c)
-// })()
+(async () => {
+    let c = await api.GET('currentUser');
+    console.info(777,c)
+})()

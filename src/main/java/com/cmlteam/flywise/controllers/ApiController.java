@@ -26,38 +26,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class ApiController {
     private final UserService userService;
     private final AppSecurityService appSecurityService;
-    private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public ApiController(UserService userService, AppSecurityService appSecurityService, AuthenticationManager authenticationManager) {
+    public ApiController(UserService userService, AppSecurityService appSecurityService) {
         this.userService = userService;
         this.appSecurityService = appSecurityService;
-        this.authenticationManager = authenticationManager;
     }
-
-    /*@RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
-    public LoginStatus getStatus() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && !auth.getName().equals("anonymousUser") && auth.isAuthenticated()) {
-            return new LoginStatus(true, auth.getName());
-        } else {
-            return new LoginStatus(false, null);
-        }
-    }*/
 
     @RequestMapping(value = "login", method = POST)
     public ResultStatus login(@RequestBody LoginRequest loginRequest) {
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                loginRequest.getLogin(), loginRequest.getPassword());
-
-//        User details = new User(username);
-//        token.setDetails(details);
-
         try {
-            Authentication auth = authenticationManager.authenticate(token);
-            SecurityContextHolder.getContext().setAuthentication(auth);
+            appSecurityService.login(loginRequest.getLogin(), loginRequest.getPassword());
             return ResultStatus.SUCCESS;
         } catch (BadCredentialsException e) {
             return ResultStatus.error(e.getMessage());

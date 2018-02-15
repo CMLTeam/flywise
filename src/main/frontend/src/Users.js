@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {api} from './api';
 import User from "./User";
-import {userLoadStarted, userLoadSuccess} from "./redux/actions";
+import {usersLoadStarted, usersLoadSuccess} from "./redux/actions";
 
 class Users extends Component {
     async componentDidMount() {
-        this.props.dispatch(userLoadStarted());
+        this.props.dispatch(usersLoadStarted());
         const json = await api.GET('user');
-        this.props.dispatch(userLoadSuccess(json));
+        this.props.dispatch(usersLoadSuccess(json));
     }
     
     render() {

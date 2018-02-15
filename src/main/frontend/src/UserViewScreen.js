@@ -1,33 +1,42 @@
 import React, {Component} from 'react';
 import {api} from './api';
 import {Link} from 'react-router-dom';
+import {userLoadStarted, userLoadSuccess} from "./redux/actions";
+import { connect } from 'react-redux';
 
-export default class UserViewScreen extends Component {
+class UserViewScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            userId: props.match.params.id
-        }
+        this.userId = props.match.params.id;
     }
 
     async componentDidMount() {
-        const json = await api.GET(`user/${this.state.userId}`);
-        this.setState({user: json})
+        this.props.dispatch(userLoadStarted(this.userId));
+        const json = await api.GET(`user/${this.userId}`);
+        this.props.dispatch(userLoadSuccess(json));
     }
 
     render() {
-        return this.state.user ? (
+        return this.props.user ? (
             <div>
                 <h3>User</h3>
-                <div><b>Id: </b> {this.state.user.id}</div>
-                <div><b>Firstname: </b> {this.state.user.firstName}</div>
-                <div><b>Lastname: </b> {this.state.user.lastName}</div>
-                <div><b>Email: </b> {this.state.user.email}</div>
-                <div><b>Phone: </b> {this.state.user.phone}</div>
-                <Link to={`/user/${this.state.userId}/edit`}>Edit</Link>
+                <div><b>Id: </b> {this.userId}</div>
+                <div><b>Firstname: </b> {this.props.user.firstName}</div>
+                <div><b>Lastname: </b> {this.props.user.lastName}</div>
+                <div><b>Email: </b> {this.props.user.email}</div>
+                <div><b>Phone: </b> {this.props.user.phone}</div>
+                <Link to={`/user/${this.userId}/edit`}>Edit</Link>
             </div>
         ) : (
             <div>Loading...</div>
         );
     }
+}
+
+const mapStateToProps = state => {
+    return {
+        user: state.selectedUser
+    }
 };
+
+export default UserViewScreen = connect(mapStateToProps)(UserViewScreen);

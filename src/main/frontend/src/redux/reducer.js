@@ -1,13 +1,13 @@
-import {USERS_LOAD_STARTED, USERS_LOAD_SUCCESS} from "./actionTypes";
+import {USER_LOAD_STARTED, USER_LOAD_SUCCESS, USERS_LOAD_STARTED, USERS_LOAD_SUCCESS} from "./actionTypes";
 import {combineReducers} from "redux";
 
 const initialState = {
     currentUser: null,
-    userInEdit: null,
+    selectedUser: null, // view/edit
     users: []
 };
 
-export function users(state = initialState.users, action) {
+const users = (state = initialState.users, action) => {
     switch (action.type) {
         case USERS_LOAD_STARTED:
             return state;
@@ -16,10 +16,22 @@ export function users(state = initialState.users, action) {
         default:
             return state;
     }
-}
+};
+
+const selectedUser = (state = initialState.selectedUser, action) => {
+    switch (action.type) {
+        case USER_LOAD_STARTED:
+            return initialState.selectedUser;
+        case USER_LOAD_SUCCESS:
+            return action.user;
+        default:
+            return state;
+    }
+};
 
 const reducer = combineReducers({
-    users
+    users,
+    selectedUser,
 });
 
 export default reducer;

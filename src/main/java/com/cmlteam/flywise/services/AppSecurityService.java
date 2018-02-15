@@ -2,6 +2,8 @@ package com.cmlteam.flywise.services;
 
 import com.cmlteam.flywise.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,10 +14,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AppSecurityService {
     private final AuthenticationManager authenticationManager;
+    private final JdbcTemplate jdbcTemplate;
+    private static final BeanPropertyRowMapper<User> USER_BEAN_PROPERTY_ROW_MAPPER = new BeanPropertyRowMapper<>(User.class);
 
     @Autowired
-    public AppSecurityService(AuthenticationManager authenticationManager) {
+    public AppSecurityService(AuthenticationManager authenticationManager, JdbcTemplate jdbcTemplate) {
         this.authenticationManager = authenticationManager;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public void login(String login, String password) throws BadCredentialsException {
@@ -33,13 +38,11 @@ public class AppSecurityService {
                 authentication.getAuthorities().size()==1 && "ROLE_ANONYMOUS".equals(authentication.getAuthorities().iterator().next().getAuthority()))
             return new User();
 
-        User user = new User();
-
         Object principal = authentication.getPrincipal();
         org.springframework.security.core.userdetails.User principalUser = (org.springframework.security.core.userdetails.User) principal;
-        user.setUsername(principalUser.getUsername());
-        user.setRole(authentication.getAuthorities().iterator().next().getAuthority());
 
+        // TODO cache somehow?
+        User user = jdbcTemplate.queryForObject("select * from user where username=?", USER_BEAN_PROPERTY_ROW_MAPPER, principalUser.getUsername());
         return user;
     }
 }

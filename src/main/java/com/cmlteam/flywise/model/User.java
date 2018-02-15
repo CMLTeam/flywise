@@ -1,5 +1,7 @@
 package com.cmlteam.flywise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User {
     private long id;
     private String username;
@@ -38,6 +40,7 @@ public class User {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

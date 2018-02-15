@@ -36,20 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("SELECT\n" +
-                        "  a.account AS username,\n" +
-                        "  a.password AS password,\n" +
-                        "  1 ^ c.block_flag AS enabled\n" +
-                        "FROM user_auth a\n" +
-                        "INNER JOIN user_account c ON a.account = c.account\n" +
-                        "WHERE a.account = ?")
-                .authoritiesByUsernameQuery("SELECT\n" +
-                        "  u.account AS username,\n" +
-                        "  r.role AS role\n" +
-                        "FROM user_role u\n" +
-                        "INNER JOIN user_roles r ON u.role_id = r.id\n" +
-                        "WHERE u.account = ?"
-                );
+                .usersByUsernameQuery("SELECT username,password,enabled FROM user WHERE username = ?")
+                .authoritiesByUsernameQuery("SELECT username,role FROM user WHERE username = ?");
     }
 
     @Override

@@ -4,11 +4,34 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-	<changeSet id="security_create_tables-DDL" author="vgorin">
-		<sqlFile path="sql/security/security_create_tables-DDL.sql"/>
+	<changeSet id="001-users-roles" author="vgubarkov">
+		<createTable tableName="user">
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints primaryKey="true"/>
+			</column>
+
+			<column name="enabled" type="BIT" defaultValue="1"><constraints nullable="false"/></column>
+
+			<column name="username" type="VARCHAR(100)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="password" type="VARCHAR(100)"><constraints nullable="false"/></column>
+
+			<column name="firstName" type="VARCHAR(100)"/>
+			<column name="lastName" type="VARCHAR(100)"/>
+			<column name="email" type="VARCHAR(100)"/>
+			<column name="phone" type="VARCHAR(20)"/>
+
+			<column name="role" type="VARCHAR(50)"><constraints nullable="false"/></column>
+		</createTable>
 	</changeSet>
-	<changeSet id="security_fill_test_data-DML" author="vgorin">
-		<sqlFile path="sql/security/security_fill_test_data-DML.sql"/>
+	<changeSet id="002-users-roles" author="vgubarkov">
+		<sql>
+			INSERT INTO user(username, password, role)
+			VALUES('admin', '$2a$10$feOMGZ60/NPAO2fsDw/By.tA03F.yaggfiqtd9cluPqDSr7y0bSrG', 'ROLE_ADMIN');
+			INSERT INTO user(username, password, role)
+			VALUES('user', '$2a$10$yOdxUyBD6.Wyl8usvs2kp.NHnIfx9O6sXsZH36YMQVHWtFFz9Qcwe', 'ROLE_USER');
+		</sql>
 	</changeSet>
 
 </databaseChangeLog>

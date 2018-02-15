@@ -29,10 +29,12 @@ class LoginScreen extends Component {
                 <h2>Login</h2>
                 <div>
                     <div>
-                        Login: <input type={'text'} name={'login'} value={this.state.login}  onChange={this.handleOnChange}/>
+                        Login: <input type={'text'} name={'login'}
+                                      value={this.state.login||""} onChange={this.handleOnChange}/>
                     </div>
                     <div>
-                        Password: <input type={'password'} name={'password'} value={this.state.password}  onChange={this.handleOnChange}/>
+                        Password: <input type={'password'} name={'password'}
+                                         value={this.state.password||""} onChange={this.handleOnChange}/>
                     </div>
                     <button type={'button'} onClick={this.doLogin}>Login</button>
                 </div>

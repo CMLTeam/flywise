@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class User extends Component {
+    static propTypes = {
+        id: PropTypes.number.isRequired,
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+    };
     render() {
         return (
             <div className="user">

@@ -1,25 +1,21 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import {api} from './api';
 import User from "./User";
+import {userLoadStarted, userLoadSuccess} from "./redux/actions";
 
 class Users extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            users: []
-        }
-    }
-
     async componentDidMount() {
+        this.props.dispatch(userLoadStarted());
         const json = await api.GET('user');
-        this.setState({users: json})
+        this.props.dispatch(userLoadSuccess(json));
     }
     
     render() {
         return (
             <div className="users">
                 <h2>Users</h2>
-                {this.state.users.map(u =>
+                {this.props.users.map(u =>
                     <User key={u.id}
                           id={u.id}
                           firstName={u.firstName}
@@ -30,4 +26,10 @@ class Users extends Component {
     }
 }
 
-export default Users;
+const mapStateToProps = state => {
+    return {
+        users: state.users
+    }
+};
+
+export default Users = connect(mapStateToProps)(Users);

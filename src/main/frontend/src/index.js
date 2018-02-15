@@ -5,8 +5,16 @@ import App from './App';
 // import registerServiceWorker from './registerServiceWorker';
 // import {unregister} from './registerServiceWorker';
 // import {API_ROOT} from './api-cfg';
+import reducer from './redux/reducer';
+import {createStore} from "redux";
+import { Provider } from 'react-redux'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(reducer);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>, document.getElementById('root'));
 
 // registerServiceWorker();
 // unregister(); // TODO disabling for now till we understand wtf

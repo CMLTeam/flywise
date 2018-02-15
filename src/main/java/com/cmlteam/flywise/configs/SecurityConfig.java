@@ -19,6 +19,7 @@ import javax.sql.DataSource;
 
 
 @Configuration
+//@EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(
         prePostEnabled = true,
         securedEnabled = true)
@@ -31,8 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.dataSource = dataSource;
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//    @Override XXX hmmm wtf
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("SELECT\n" +
                         "  a.account AS username,\n" +

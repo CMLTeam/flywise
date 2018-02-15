@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
 import {api} from './api';
+import { connect } from 'react-redux';
+import {userLoadStarted, userLoadSuccess} from "./redux/actions";
 
-export default class UserEditScreen extends Component {
+class UserEditScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            userId: props.match.params.id
-        };
+        this.userId = props.match.params.id;
+        this.state = {};
     }
 
     async componentDidMount() {
-        const json = await api.GET(`user/${this.state.userId}`);
-        this.setState({user: json})
+        this.props.dispatch(userLoadStarted(this.userId));
+        const json = await api.GET(`user/${this.userId}`);
+        this.props.dispatch(userLoadSuccess(json));
+        this.setState({user: this.props.user});
     }
 
     handleOnChange = (event) => {
@@ -31,7 +34,7 @@ export default class UserEditScreen extends Component {
         const user = this.state.user;
         const json = await api.POST('user', user);
         if (json.success) {
-            this.props.history.push(`/user/${this.state.userId}`)
+            this.props.history.push(`/user/${this.userId}`)
         } else {
             // TODO
             alert(json.error)
@@ -42,7 +45,7 @@ export default class UserEditScreen extends Component {
         return this.state.user ? (
             <div>
                 <h3>Edit User</h3>
-                <div><b>Id: </b> {this.state.user.id}</div>
+                <div><b>Id: </b> {this.userId}</div>
                 <div><b>Firstname: </b> 
                     <input type="text" name={'firstName'} value={this.state.user.firstName} onChange={this.handleOnChange}/></div>
                 <div><b>Lastname: </b>
@@ -58,3 +61,12 @@ export default class UserEditScreen extends Component {
         );
     }
 };
+
+const mapStateToProps = state => {
+    return {
+        user: state.selectedUser
+    }
+};
+
+export default UserEditScreen = connect(mapStateToProps)(UserEditScreen);
+

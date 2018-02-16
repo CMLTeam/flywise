@@ -13,7 +13,7 @@ class User extends Component {
         return (
             <div className="user">
                 #{this.props.id}
-                {' '}{this.props.firstName} {this.props.lastName}
+                {' '}{this.props.username} {this.props.firstName} {this.props.lastName} {this.props.role}
                 {' '}<Link to={`/user/${this.props.id}`}>View</Link>
                 {' '}<Link to={`/user/${this.props.id}/edit`}>Edit</Link>
             </div>

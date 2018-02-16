@@ -60,6 +60,19 @@ class UserEditScreen extends Component {
                         </div>
                     : <h3>Add User</h3>
                 }
+                <div><b>Username: </b>
+                    <input type="text" name={'username'}
+                           value={this.state.user.username||''}
+                           onChange={this.handleOnChange}/></div>
+                <div><b>Role: </b>
+                    <select name={'role'}
+                           value={this.state.user.role||''}
+                            onChange={this.handleOnChange}>
+                        <option value={''}>--select--</option>
+                        <option value={'ROLE_USER'}>ROLE_USER</option>
+                        <option value={'ROLE_ADMIN'}>ROLE_ADMIN</option>
+                    </select>
+                </div>
                 <div><b>Firstname: </b>
                     <input type="text" name={'firstName'}
                            value={this.state.user.firstName||''}

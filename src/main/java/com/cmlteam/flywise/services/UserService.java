@@ -1,44 +1,68 @@
 package com.cmlteam.flywise.services;
 
 import com.cmlteam.flywise.model.User;
+import com.cmlteam.flywise.util.UpdateBuilder;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class UserService {
-    private List<User> USERS = Arrays.asList(
-            new User(1, "Ivan", "Ivanov", "i@i.com", "+1111111", "role"),
-            new User(2, "Peter", "Petrov", "p@p.com", "+2222222", "role"),
-            new User(3, "Sidor", "Sidorov", "s@s.com", "+3333333", "role")
-    );
+    private final JdbcTemplate jdbcTemplate;
+    private final PasswordEncoder passwordEncoder;
 
+    @Autowired
+    public UserService(JdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    // TODO pagination
     public List<User> listUsers() {
-        return USERS;
+        return jdbcTemplate.query("select * from user", RowMappers.User);
     }
 
     public User loadUser(long id) {
-        for (User user : USERS) {
-            if (id == user.getId()) {
-                return user;
-            }
-        }
-        return null;
+        return jdbcTemplate.queryForObject("select * from user where id=?", RowMappers.User, id);
     }
+
     public void saveUser(User user) {
+        String password = user.getPassword();
         if (user.getId() == 0) { // add
-            USERS.add(user);
+            GeneratedKeyHolder holder = new GeneratedKeyHolder();
+            jdbcTemplate.update("insert into user(username, password, firstName, lastName, email, phone, role) " +
+                            "values (?,?,?,?,?,?,?)",
+                    user.getUsername(),
+                    passwordEncoder.encode(password),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getEmail(),
+                    user.getPhone(),
+                    user.getRole(),
+                    holder);
+            user.setId(holder.getKey().longValue());
         } else { // update
-            List<User> uu = new ArrayList<>(USERS.size());
-            for (User u : USERS) {
-                if (u.getId() == user.getId())
-                    uu.add(user);
-                else
-                    uu.add(u);
+            UpdateBuilder updateBuilder = new UpdateBuilder("user")
+                    .whereId(user.getId())
+                    .set("username", user.getUsername())
+                    .set("firstName", user.getFirstName())
+                    .set("lastName", user.getLastName())
+                    .set("email", user.getEmail())
+                    .set("phone", user.getPhone())
+                    .set("role", user.getRole());
+            if (StringUtils.isNotEmpty(password)) {
+                updateBuilder.set("password", passwordEncoder.encode(password));
             }
-            USERS = uu;
+            updateBuilder.execute(jdbcTemplate);
         }
+    }
+
+    public void deleteUser(long id) {
+        jdbcTemplate.update("delete from user where id=?", id);
     }
 }

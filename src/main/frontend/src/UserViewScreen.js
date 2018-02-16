@@ -21,6 +21,8 @@ class UserViewScreen extends Component {
             <div>
                 <h3>User</h3>
                 <div><b>Id: </b> {this.userId}</div>
+                <div><b>Username: </b> {this.props.user.username}</div>
+                <div><b>Role: </b> {this.props.user.role}</div>
                 <div><b>Firstname: </b> {this.props.user.firstName}</div>
                 <div><b>Lastname: </b> {this.props.user.lastName}</div>
                 <div><b>Email: </b> {this.props.user.email}</div>

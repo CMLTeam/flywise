@@ -2,7 +2,6 @@ package com.cmlteam.flywise.services;
 
 import com.cmlteam.flywise.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class AppSecurityService {
     private final AuthenticationManager authenticationManager;
     private final JdbcTemplate jdbcTemplate;
-    private static final BeanPropertyRowMapper<User> USER_BEAN_PROPERTY_ROW_MAPPER = new BeanPropertyRowMapper<>(User.class);
 
     @Autowired
     public AppSecurityService(AuthenticationManager authenticationManager, JdbcTemplate jdbcTemplate) {
@@ -42,7 +40,7 @@ public class AppSecurityService {
         org.springframework.security.core.userdetails.User principalUser = (org.springframework.security.core.userdetails.User) principal;
 
         // TODO cache somehow?
-        User user = jdbcTemplate.queryForObject("select * from user where username=?", USER_BEAN_PROPERTY_ROW_MAPPER, principalUser.getUsername());
+        User user = jdbcTemplate.queryForObject("select * from user where username=?", RowMappers.User, principalUser.getUsername());
         return user;
     }
 }

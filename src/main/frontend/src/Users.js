@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {api} from './api';
 import User from "./User";
 import {usersLoadStarted, usersLoadSuccess} from "./redux/actions";
+import {Link} from "react-router-dom";
 
 class Users extends Component {
     async componentDidMount() {
@@ -21,6 +22,7 @@ class Users extends Component {
                           firstName={u.firstName}
                           lastName={u.lastName} />
                 )}
+                <Link to={`/user/add`}>Add</Link>
             </div>
         );
     }

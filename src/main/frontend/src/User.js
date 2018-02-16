@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 class User extends Component {
     static propTypes = {
@@ -8,6 +8,7 @@ class User extends Component {
         firstName: PropTypes.string,
         lastName: PropTypes.string,
     };
+
     render() {
         return (
             <div className="user">

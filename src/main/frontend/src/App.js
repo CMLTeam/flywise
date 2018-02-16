@@ -25,8 +25,9 @@ class App extends Component {
                         <Route exact path='/' component={Home}/>
                         <Route exact path='/login' component={LoginScreen}/>
                         <Route exact path='/users' component={Users}/>
-                        <Route exact path='/user/:id' component={UserViewScreen}/>
-                        <Route exact path='/user/:id/edit' component={UserEditScreen}/>
+                        <Route exact path='/user/:id(\d+)' component={UserViewScreen}/>
+                        <Route exact path='/user/:id(\d+)/edit' component={UserEditScreen}/>
+                        <Route exact path='/user/add' component={UserEditScreen}/>
                     </Switch>
                 </div>
             </Router>

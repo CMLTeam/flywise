@@ -37,12 +37,12 @@ public class UpdateBuilder {
     }
 
     public String buildQuery() {
-        StringBuilder res = new StringBuilder("update ").append(tableName).append("set ");
+        StringBuilder res = new StringBuilder("update ").append(tableName).append(" set ");
         for (String col : cols) {
             res.append(col).append("=?,");
         }
         res.setLength(res.length() - 1);
-        res.append(' ').append(wherePart);
+        res.append(" where ").append(wherePart);
         return res.toString();
     }
 

@@ -36,7 +36,7 @@ public class UserService {
     public void saveUser(User user) {
         String password = user.getPassword();
         if (user.getId() == 0) { // add
-            GeneratedKeyHolder holder = new GeneratedKeyHolder();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             long id = new SimpleJdbcInsert(jdbcTemplate)
                     .withTableName("user")
                     .usingGeneratedKeyColumns("id")

@@ -34,6 +34,14 @@ class Api {
         });
         return await res.json();
     }
+
+    async DELETE(url) {
+        const res = await fetch(`${this.apiRoot}/${url}`, {
+            method: 'delete',
+            credentials: port === '3000' ? 'include' : 'same-origin'
+        });
+        return await res.json();
+    }
 }
 
 export const api = new Api(`${apiRoot}/api`);

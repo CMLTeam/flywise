@@ -22,6 +22,8 @@ import javax.sql.DataSource;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import static org.springframework.http.HttpMethod.*;
+
 @Configuration
 @EnableAutoConfiguration(exclude = {JacksonAutoConfiguration.class})
 @EnableScheduling
@@ -71,7 +73,9 @@ public class AppConfig implements AsyncConfigurer, SchedulingConfigurer {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/**")
+                        .allowedMethods(GET.name(), HEAD.name(), POST.name(), PUT.name(), DELETE.name())
+                        .allowedOrigins("http://localhost:3000");
             }
         };
     }

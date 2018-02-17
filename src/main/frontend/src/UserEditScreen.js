@@ -21,7 +21,7 @@ class UserEditScreen extends Component {
             this.props.dispatch(userLoadSuccess(json));
             this.setState({user: this.props.user});
         } else {
-            this.setState({user: {enabled:true}})
+            this.setState({user: {enabled:true, deleted:false}})
         }
     }
 
@@ -43,6 +43,16 @@ class UserEditScreen extends Component {
         try {
             const json = await api.POST('user', user);
             this.props.history.push(`/user/${json.id}`)
+        } catch(e) {
+            // TODO
+            alert('Error: ' + e)
+        }
+    };
+
+    handleDelete = async (event) => {
+        try {
+            const json = await api.DELETE(`user/${this.userId}`);
+            this.props.history.push(`/users`)
         } catch(e) {
             // TODO
             alert('Error: ' + e)
@@ -104,6 +114,7 @@ class UserEditScreen extends Component {
                            onChange={this.handleOnChange}/>
                 </div>
                 <button type={'button'} onClick={this.handleSave}>Save</button>
+                <button type={'button'} onClick={this.handleDelete}>Delete</button>
             </div>
         ) : (
             <div>Loading...</div>

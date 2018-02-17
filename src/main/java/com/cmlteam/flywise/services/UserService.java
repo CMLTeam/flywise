@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +25,11 @@ public class UserService {
 
     // TODO pagination
     public List<User> listUsers() {
-        return jdbcTemplate.query("select * from user", RowMappers.User);
+        return jdbcTemplate.query("select * from user where deleted=0", RowMappers.User);
     }
 
     public User loadUser(long id) {
-        return jdbcTemplate.queryForObject("select * from user where id=?", RowMappers.User, id);
+        return jdbcTemplate.queryForObject("select * from user where id=? and deleted=0", RowMappers.User, id);
     }
 
     public void saveUser(User user) {
@@ -60,6 +59,6 @@ public class UserService {
     }
 
     public void deleteUser(long id) {
-        jdbcTemplate.update("delete from user where id=?", id);
+        jdbcTemplate.update("update user set deleted=1 where id=?", id);
     }
 }

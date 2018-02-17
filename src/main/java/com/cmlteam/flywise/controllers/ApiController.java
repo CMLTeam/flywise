@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -48,6 +49,12 @@ public class ApiController {
     @RequestMapping(value = "user/{id}", method = GET)
     public User loadUser(@PathVariable long id) {
         return userService.loadUser(id);
+    }
+
+    @RequestMapping(value = "user/{id}", method = DELETE)
+    public ResultStatus deleteUser(@PathVariable long id) {
+        userService.deleteUser(id);
+        return ResultStatus.SUCCESS;
     }
 
     @RequestMapping(value = "user", method = POST)

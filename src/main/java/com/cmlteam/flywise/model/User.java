@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class User {
     private long id;
     private boolean enabled;
+    private boolean deleted;
     private String username;
     private String password;
     private String firstName;
@@ -17,9 +18,10 @@ public class User {
     public User() {
     }
 
-    public User(long id, boolean enabled, String firstName, String lastName, String email, String phone, String role) {
+    public User(long id, boolean enabled, boolean deleted, String firstName, String lastName, String email, String phone, String role) {
         this.id = id;
         this.enabled = enabled;
+        this.deleted = deleted;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -41,6 +43,16 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @JsonIgnore
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    @JsonProperty
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public String getUsername() {

@@ -40,12 +40,12 @@ class UserEditScreen extends Component {
 
     handleSave = async (event) => {
         const user = this.state.user;
-        const json = await api.POST('user', user);
-        if (json.success) {
-            this.props.history.push(`/user/${this.userId}`)
-        } else {
+        try {
+            const json = await api.POST('user', user);
+            this.props.history.push(`/user/${json.id}`)
+        } catch(e) {
             // TODO
-            alert(json.error)
+            alert('Error: ' + e)
         }
     };
 

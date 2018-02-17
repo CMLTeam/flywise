@@ -51,9 +51,9 @@ public class ApiController {
     }
 
     @RequestMapping(value = "user", method = POST)
-    public ResultStatus saveUser(@RequestBody User user) {
+    public User saveUser(@RequestBody User user) {
         userService.saveUser(user);
-        return ResultStatus.SUCCESS;
+        return user;
     }
 
     @RequestMapping(value = "currentUser", method = GET)

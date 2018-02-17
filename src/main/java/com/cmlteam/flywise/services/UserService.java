@@ -35,6 +35,10 @@ public class UserService {
     public void saveUser(User user) {
         String password = user.getPassword();
         if (user.getId() == 0) { // add
+            int count = jdbcTemplate.queryForObject("select count(*) from user where deleted=0 and username=?", Integer.class, user.getUsername());
+            if (count > 0) {
+                throw new RuntimeException("This username is already taken");
+            }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             long id = new SimpleJdbcInsert(jdbcTemplate)
                     .withTableName("user")

@@ -45,7 +45,7 @@ class UserEditScreen extends Component {
             this.props.history.push(`/user/${json.id}`)
         } catch(e) {
             // TODO
-            alert('Error: ' + e)
+            alert(e.message)
         }
     };
 
@@ -55,7 +55,7 @@ class UserEditScreen extends Component {
             this.props.history.push(`/users`)
         } catch(e) {
             // TODO
-            alert('Error: ' + e)
+            alert(e.message)
         }
     };
 

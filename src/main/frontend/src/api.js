@@ -16,11 +16,18 @@ class Api {
         this.apiRoot = apiRoot;
     }
 
+    async handleError(res) {
+        const json = await res.json();
+        if (!res.ok)
+            throw new Error(`Error ${json.status}: ${json.message}`);
+        return json;
+    }
+
     async GET(url) {
         const res = await fetch(`${this.apiRoot}/${url}`, {
             credentials: port === '3000' ? 'include' : 'same-origin'
         });
-        return await res.json();
+        return await this.handleError(res);
     }
 
     async POST(url, dataJson) {
@@ -32,7 +39,7 @@ class Api {
             },
             body: JSON.stringify(dataJson)
         });
-        return await res.json();
+        return await this.handleError(res);
     }
 
     async DELETE(url) {
@@ -40,7 +47,7 @@ class Api {
             method: 'delete',
             credentials: port === '3000' ? 'include' : 'same-origin'
         });
-        return await res.json();
+        return await this.handleError(res);
     }
 }
 

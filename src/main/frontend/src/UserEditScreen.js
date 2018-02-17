@@ -58,7 +58,9 @@ class UserEditScreen extends Component {
             alert(e.message)
         }
     };
-
+    handleCancel = async (event) => {
+        this.props.history.push(`/users`)
+    };
     render() {
         return this.state.user ? (
             <div>
@@ -114,7 +116,10 @@ class UserEditScreen extends Component {
                            onChange={this.handleOnChange}/>
                 </div>
                 <button type={'button'} onClick={this.handleSave}>Save</button>
-                <button type={'button'} onClick={this.handleDelete}>Delete</button>
+                {
+                    this.isEdit() && <button type={'button'} onClick={this.handleDelete}>Delete</button>
+                }
+                <button type={'button'} onClick={this.handleCancel}>Cancel</button>
             </div>
         ) : (
             <div>Loading...</div>

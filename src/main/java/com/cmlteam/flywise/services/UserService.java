@@ -46,6 +46,7 @@ public class UserService {
             UpdateBuilder updateBuilder = new UpdateBuilder("user")
                     .whereId(user.getId())
                     .set("username", user.getUsername())
+                    .set("enabled", user.isEnabled())
                     .set("firstName", user.getFirstName())
                     .set("lastName", user.getLastName())
                     .set("email", user.getEmail())

@@ -21,7 +21,7 @@ class UserEditScreen extends Component {
             this.props.dispatch(userLoadSuccess(json));
             this.setState({user: this.props.user});
         } else {
-            this.setState({user: {}})
+            this.setState({user: {enabled:true}})
         }
     }
 
@@ -63,6 +63,18 @@ class UserEditScreen extends Component {
                 <div><b>Username: </b>
                     <input type="text" name={'username'}
                            value={this.state.user.username||''}
+                           onChange={this.handleOnChange}/></div>
+                <div><b>Enabled: </b>
+                    <input type="checkbox" name={'enabled'}
+                           checked={this.state.user.enabled||false}
+                           onChange={this.handleOnChange}/></div>
+                <div><b>Password: </b>
+                    <input type="text" name={'password'}
+                           value={this.state.user.password||''}
+                           onChange={this.handleOnChange}/></div>
+                <div><b>Password (repeat): </b>
+                    <input type="text" name={'password2'}
+                           value={this.state.user.password2||''}
                            onChange={this.handleOnChange}/></div>
                 <div><b>Role: </b>
                     <select name={'role'}

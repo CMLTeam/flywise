@@ -1,9 +1,11 @@
 package com.cmlteam.flywise.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
     private long id;
+    private boolean enabled;
     private String username;
     private String password;
     private String firstName;
@@ -15,8 +17,9 @@ public class User {
     public User() {
     }
 
-    public User(long id, String firstName, String lastName, String email, String phone, String role) {
+    public User(long id, boolean enabled, String firstName, String lastName, String email, String phone, String role) {
         this.id = id;
+        this.enabled = enabled;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -32,6 +35,14 @@ public class User {
         this.id = id;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -40,11 +51,18 @@ public class User {
         this.username = username;
     }
 
+    /**
+     * do not render pass in JSON
+     */
     @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    /**
+     * but do parse password in submitted JSON
+     */
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }

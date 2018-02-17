@@ -5,6 +5,8 @@ import com.cmlteam.flywise.util.UpdateBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,17 +37,11 @@ public class UserService {
         String password = user.getPassword();
         if (user.getId() == 0) { // add
             GeneratedKeyHolder holder = new GeneratedKeyHolder();
-            jdbcTemplate.update("insert into user(username, password, firstName, lastName, email, phone, role) " +
-                            "values (?,?,?,?,?,?,?)",
-                    user.getUsername(),
-                    passwordEncoder.encode(password),
-                    user.getFirstName(),
-                    user.getLastName(),
-                    user.getEmail(),
-                    user.getPhone(),
-                    user.getRole(),
-                    holder);
-            user.setId(holder.getKey().longValue());
+            long id = new SimpleJdbcInsert(jdbcTemplate)
+                    .withTableName("user")
+                    .usingGeneratedKeyColumns("id")
+                    .executeAndReturnKey(new BeanPropertySqlParameterSource(user)).longValue();
+            user.setId(id);
         } else { // update
             UpdateBuilder updateBuilder = new UpdateBuilder("user")
                     .whereId(user.getId())

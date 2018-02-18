@@ -52,8 +52,3 @@ class Api {
 }
 
 export const api = new Api(`${apiRoot}/api`);
-
-(async () => {
-    let c = await api.GET('currentUser');
-    console.info(777,c)
-})()

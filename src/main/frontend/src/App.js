@@ -7,6 +7,8 @@ import Users from "./Users";
 import UserViewScreen from "./UserViewScreen";
 import UserEditScreen from "./UserEditScreen";
 import LoginScreen from "./LoginScreen";
+import LoginBlock from "./LoginBlock";
+import {connect} from "react-redux";
 
 class App extends Component {
     render() {
@@ -16,7 +18,7 @@ class App extends Component {
                     <h2>FlyWise</h2>
                     <ul>
                         <li><Link to={'/'}>Home</Link></li>
-                        <li><Link to={'/login'}>Login</Link></li>
+                        <li><LoginBlock /></li>
                         <li><Link to={'/users'}>Users</Link></li>
                     </ul>
                     <hr/>
@@ -34,5 +36,8 @@ class App extends Component {
         );
     }
 }
-
-export default App;
+const mapStateToProps = state => {
+    return {
+    }
+};
+export default App = connect(mapStateToProps)(App);

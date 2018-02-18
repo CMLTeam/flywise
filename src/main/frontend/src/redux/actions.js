@@ -1,5 +1,13 @@
 import {
-    CURRENT_USER_LOAD_STARTED, CURRENT_USER_LOAD_SUCCESS, USER_LOAD_STARTED, USER_LOAD_SUCCESS, USERS_LOAD_STARTED,
+    CURRENT_USER_LOAD_STARTED,
+    CURRENT_USER_LOAD_SUCCESS,
+    LOGIN_STARTED,
+    LOGIN_SUCCESS,
+    LOGOUT_STARTED,
+    LOGOUT_SUCCESS,
+    USER_LOAD_STARTED,
+    USER_LOAD_SUCCESS,
+    USERS_LOAD_STARTED,
     USERS_LOAD_SUCCESS
 } from "./actionTypes";
 
@@ -29,6 +37,24 @@ export const currentUserLoadStarted = () => ({
 export const currentUserLoadSuccess = (currentUser) => ({
     type: CURRENT_USER_LOAD_SUCCESS,
     currentUser
+});
+
+export const loginStarted = (loginData) => ({
+    type: LOGIN_STARTED,
+    loginData
+});
+
+export const loginSuccess = (currentUser) => ({
+    type: LOGIN_SUCCESS,
+    currentUser
+});
+
+export const logoutStarted = () => ({
+    type: LOGOUT_STARTED,
+});
+
+export const logoutSuccess = () => ({
+    type: LOGOUT_SUCCESS,
 });
 
 

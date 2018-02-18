@@ -1,6 +1,12 @@
 import {combineReducers} from "redux";
 import {
-    CURRENT_USER_LOAD_STARTED, CURRENT_USER_LOAD_SUCCESS, USER_LOAD_STARTED, USER_LOAD_SUCCESS, USERS_LOAD_STARTED,
+    CURRENT_USER_LOAD_STARTED,
+    CURRENT_USER_LOAD_SUCCESS,
+    LOGIN_SUCCESS,
+    LOGOUT_SUCCESS,
+    USER_LOAD_STARTED,
+    USER_LOAD_SUCCESS,
+    USERS_LOAD_STARTED,
     USERS_LOAD_SUCCESS
 } from "./actionTypes";
 
@@ -35,8 +41,10 @@ const selectedUser = (state = initialState.selectedUser, action) => {
 const currentUser = (state = initialState.currentUser, action) => {
     switch (action.type) {
         case CURRENT_USER_LOAD_STARTED:
+        case LOGOUT_SUCCESS:
             return initialState.currentUser;
         case CURRENT_USER_LOAD_SUCCESS:
+        case LOGIN_SUCCESS:
             return action.currentUser;
         default:
             return state;

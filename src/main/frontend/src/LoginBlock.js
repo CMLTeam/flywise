@@ -2,22 +2,23 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 import {api} from "./api";
-import {currentUserLoadStarted, currentUserLoadSuccess} from "./redux/actions";
+import {currentUserLoadStarted, currentUserLoadSuccess, logoutStarted, logoutSuccess} from "./redux/actions";
 
 class LoginBlock extends Component {
     async componentDidMount() {
         await this.props.loadCurrentUser();
     }
 
-    handleLogout = () => {
-
+    handleLogout = (event) => {
+        event.preventDefault();
+        this.props.doLogoutCall();
     };
 
     render() {
         return (
             this.props.currentUser.id ?
                 <span>
-                    Welcome, <b>{this.props.currentUser.username}</b> <a onClick={this.handleLogout}>Logout</a>
+                    Welcome, <b>{this.props.currentUser.username}</b> <a href={'#'} onClick={this.handleLogout}>Logout</a>
                 </span>
                 :
                 <Link to={'/login'}>Login</Link>
@@ -35,6 +36,11 @@ const mapDispatchToProps = dispatch => {
             dispatch(currentUserLoadStarted());
             let json = await api.GET('currentUser');
             dispatch(currentUserLoadSuccess(json));
+        },
+        doLogoutCall: async () => {
+            dispatch(logoutStarted());
+            let json = await api.POST('logout');
+            dispatch(logoutSuccess(json));
         }
     }
 };

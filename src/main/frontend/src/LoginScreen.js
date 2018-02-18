@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {api} from './api';
+import {loginStarted, loginSuccess} from "./redux/actions";
+import {connect} from "react-redux";
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -17,11 +19,10 @@ class LoginScreen extends Component {
         });
     };
     doLogin = async (event) => {
-        let res = await api.POST('login', {
+        this.props.doLoginCall({
             login: this.state.login,
             password: this.state.password
         });
-        console.info(111,res)
     };
     render() {
         return (
@@ -42,4 +43,18 @@ class LoginScreen extends Component {
         );
     }
 }
-export default LoginScreen;
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser
+    }
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        doLoginCall: async (loginData) => {
+            dispatch(loginStarted(loginData));
+            let json = await api.POST('login', loginData);
+            dispatch(loginSuccess(json));
+        }
+    }
+};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

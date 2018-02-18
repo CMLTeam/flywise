@@ -6,17 +6,17 @@ import com.cmlteam.flywise.model.User;
 import com.cmlteam.flywise.services.AppSecurityService;
 import com.cmlteam.flywise.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api")
@@ -31,14 +31,15 @@ public class ApiController {
     }
 
     @RequestMapping(value = "login", method = POST)
-    public ResultStatus login(@RequestBody LoginRequest loginRequest) {
+    public User login(@RequestBody LoginRequest loginRequest) {
+        appSecurityService.login(loginRequest.getLogin(), loginRequest.getPassword());
+        return appSecurityService.getCurrentUser();
+    }
 
-        try {
-            appSecurityService.login(loginRequest.getLogin(), loginRequest.getPassword());
-            return ResultStatus.SUCCESS;
-        } catch (BadCredentialsException e) {
-            return ResultStatus.error(e.getMessage());
-        }
+    @RequestMapping(value = "logout", method = POST)
+    public ResultStatus logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        appSecurityService.logout(request, response);
+        return ResultStatus.SUCCESS;
     }
 
     @RequestMapping(value = "user", method = GET)

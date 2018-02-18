@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().permitAll()
 				.antMatchers("/api/**").authenticated()
-                .and().formLogin().loginPage("/login")
+//                .and().formLogin().loginPage("/login")
+//                .and().logout().logoutUrl("/api/logout")
                 .and().exceptionHandling().accessDeniedPage("/403");
     }
 

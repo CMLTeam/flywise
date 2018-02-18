@@ -18,10 +18,13 @@ class Users extends Component {
                 <h2>Users</h2>
                 {this.props.users.map(u =>
                     <User key={u.id}
+                          currentUser={this.props.currentUser}
                           {...u}
                     />
                 )}
-                <Link to={`/user/add`}>Add</Link>
+                {
+                    this.props.currentUser.role === 'ROLE_ADMIN' && <Link to={`/user/add`}>Add</Link>
+                }
             </div>
         );
     }
@@ -29,7 +32,8 @@ class Users extends Component {
 
 const mapStateToProps = state => {
     return {
-        users: state.users
+        users: state.users,
+        currentUser: state.currentUser
     }
 };
 

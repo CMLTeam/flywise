@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 class UserViewScreen extends Component {
     constructor(props) {
         super(props);
-        this.userId = props.match.params.id;
+        this.userId = props.match.params.id|0;
     }
 
     async componentDidMount() {
@@ -15,6 +15,10 @@ class UserViewScreen extends Component {
         const json = await api.GET(`user/${this.userId}`);
         this.props.dispatch(userLoadSuccess(json));
     }
+
+    canEdit = () => (
+        this.userId === this.props.currentUser.id || this.props.currentUser.role === 'ROLE_ADMIN'
+    );
 
     render() {
         return this.props.user ? (
@@ -28,7 +32,9 @@ class UserViewScreen extends Component {
                 <div><b>Lastname: </b> {this.props.user.lastName}</div>
                 <div><b>Email: </b> {this.props.user.email}</div>
                 <div><b>Phone: </b> {this.props.user.phone}</div>
-                <Link to={`/user/${this.userId}/edit`}>Edit</Link>
+                {
+                    this.canEdit() && <Link to={`/user/${this.userId}/edit`}>Edit</Link>
+                }
             </div>
         ) : (
             <div>Loading...</div>
@@ -38,7 +44,8 @@ class UserViewScreen extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.selectedUser
+        user: state.selectedUser,
+        currentUser: state.currentUser
     }
 };
 

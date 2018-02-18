@@ -52,7 +52,7 @@ public class AppSecurityService {
         org.springframework.security.core.userdetails.User principalUser = (org.springframework.security.core.userdetails.User) principal;
 
         // TODO cache somehow?
-        User user = jdbcTemplate.queryForObject("select * from user where username=?", RowMappers.User, principalUser.getUsername());
+        User user = jdbcTemplate.queryForObject("select * from user where username=? and deleted=0", RowMappers.User, principalUser.getUsername());
         return user;
     }
 }

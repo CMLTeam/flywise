@@ -1,5 +1,6 @@
 package com.cmlteam.flywise.configs;
 
+import com.cmlteam.flywise.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.sql.DataSource;
 
 /**
  * @author vgorin
@@ -25,19 +24,10 @@ import javax.sql.DataSource;
         securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final DataSource dataSource;
-
-    @Autowired
-    public SecurityConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
 //    @Override XXX hmmm wtf
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("SELECT username,password,enabled FROM user WHERE username = ? and deleted=0")
-                .authoritiesByUsernameQuery("SELECT username,role FROM user WHERE username = ? and deleted=0");
+    public void configureGlobal(AuthenticationManagerBuilder auth, UserService userService) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     @Override

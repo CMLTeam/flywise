@@ -45,14 +45,10 @@ public class AppSecurityService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null ||
-                authentication.getAuthorities().size()==1 && "ROLE_ANONYMOUS".equals(authentication.getAuthorities().iterator().next().getAuthority()))
+                authentication.getAuthorities().size() == 1 && "ROLE_ANONYMOUS".equals(authentication.getAuthorities().iterator().next().getAuthority()))
             return new User();
 
-        Object principal = authentication.getPrincipal();
-        org.springframework.security.core.userdetails.User principalUser = (org.springframework.security.core.userdetails.User) principal;
-
-        // TODO cache somehow?
-        User user = jdbcTemplate.queryForObject("select * from user where username=? and deleted=0", RowMappers.User, principalUser.getUsername());
+        User user = (User) authentication.getPrincipal();
         return user;
     }
 }

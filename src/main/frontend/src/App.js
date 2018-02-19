@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import './App.css';
 import Home from "./Home";
 import Users from "./Users";
@@ -9,17 +9,16 @@ import UserEditScreen from "./UserEditScreen";
 import LoginScreen from "./LoginScreen";
 import LoginBlock from "./LoginBlock";
 import {connect} from "react-redux";
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
-import RestoreIcon from 'material-ui-icons/Restore';
+import BottomNavigation, {BottomNavigationAction} from 'material-ui/BottomNavigation';
 import FavoriteIcon from 'material-ui-icons/Favorite';
-import LocationOnIcon from 'material-ui-icons/LocationOn';
+import HomeIcon from 'material-ui-icons/Home';
+import UsersIcon from 'material-ui-icons/People';
 
 const styles = {
     root: {
@@ -48,18 +47,10 @@ class App extends Component {
     render() {
         const { classes } = this.props;
         const { value } = this.state;
-        
+
         return (
             <Router>
                 <div>
-                    {/*<h2>FlyWise</h2>
-                    <ul>
-                        <li><Link to={'/'}>Home</Link></li>
-                        <li><LoginBlock /></li>
-                        <li><Link to={'/users'}>Users</Link></li>
-                    </ul>
-                    <hr/>*/}
-
                     <div className={classes.root}>
                         <AppBar position="static">
                             <Toolbar>
@@ -91,9 +82,9 @@ class App extends Component {
                         showLabels
                         className={classes.root}
                     >
-                        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+                        <BottomNavigationAction label="Users" icon={<UsersIcon />} component={Link} to={'/users'} />
+                        <BottomNavigationAction label="Home" icon={<HomeIcon />} component={Link} to={'/'} />
                         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-                        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
                     </BottomNavigation>
                 </div>
             </Router>

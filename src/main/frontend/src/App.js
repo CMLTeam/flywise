@@ -54,7 +54,7 @@ class App extends Component {
                                     <MenuIcon />
                                 </IconButton>
                                 <Typography variant="title" color="inherit" className={classes.flex}>
-                                    FlyWise
+                                    <Link to={'/'} style={ {color:'#fff', textDecoration:'none'} }>FlyWise</Link>
                                 </Typography>
                                 <LoginBlock />
                             </Toolbar>

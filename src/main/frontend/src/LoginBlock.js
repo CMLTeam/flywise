@@ -19,10 +19,11 @@ class LoginBlock extends Component {
         return (
             this.props.currentUser.id ?
                 <span>
-                    Welcome, <b>{this.props.currentUser.username}</b> <a href={'#'} onClick={this.handleLogout}>Logout</a>
+                    Welcome, <b>{this.props.currentUser.username}</b>
+                    <Button onClick={this.handleLogout} color={'inherit'}>Logout</Button>
                 </span>
                 :
-                <Button component={Link} to={'/login'} color="inherit">Login</Button>
+                <Button component={Link} to={'/login'} color={'inherit'}>Login</Button>
         );
     }
 }

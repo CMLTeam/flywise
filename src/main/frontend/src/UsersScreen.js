@@ -18,7 +18,7 @@ const styles = theme => ({
     },
 });
 
-class Users extends Component {
+class UsersScreen extends Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
     };
@@ -84,4 +84,4 @@ const mapStateToProps = state => {
     }
 };
 
-export default Users = withStyles(styles)(connect(mapStateToProps)(Users));
+export default UsersScreen = withStyles(styles)(connect(mapStateToProps)(UsersScreen));

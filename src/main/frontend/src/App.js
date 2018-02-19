@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import './App.css';
 import Home from "./Home";
-import Users from "./Users";
+import UsersScreen from "./UsersScreen";
 import UserViewScreen from "./UserViewScreen";
 import UserEditScreen from "./UserEditScreen";
 import LoginScreen from "./LoginScreen";
@@ -69,7 +69,7 @@ class App extends Component {
                         <Switch>
                             <Route exact path='/' component={Home}/>
                             <Route exact path='/login' component={LoginScreen}/>
-                            <Route exact path='/users' component={Users}/>
+                            <Route exact path='/users' component={UsersScreen}/>
                             <Route exact path='/user/:id(\d+)' component={UserViewScreen}/>
                             <Route exact path='/user/:id(\d+)/edit' component={UserEditScreen}/>
                             <Route exact path='/user/add' component={UserEditScreen}/>
@@ -84,7 +84,7 @@ class App extends Component {
                     >
                         <BottomNavigationAction label="Users" icon={<UsersIcon />} component={Link} to={'/users'} />
                         <BottomNavigationAction label="Home" icon={<HomeIcon />} component={Link} to={'/'} />
-                        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+                        {/*<BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />*/}
                     </BottomNavigation>
                 </div>
             </Router>

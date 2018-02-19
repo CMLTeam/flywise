@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import './App.css';
 import Home from "./Home";
@@ -15,11 +16,15 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-import PropTypes from "prop-types";
+import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
+import RestoreIcon from 'material-ui-icons/Restore';
+import FavoriteIcon from 'material-ui-icons/Favorite';
+import LocationOnIcon from 'material-ui-icons/LocationOn';
 
 const styles = {
     root: {
         flexGrow: 1,
+        // width: 500,
     },
     flex: {
         flex: 1,
@@ -33,9 +38,17 @@ class App extends Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
     };
+    state = {
+        value: 0,
+    };
+    handleChange = (event, value) => {
+        this.setState({ value });
+    };
+
     render() {
         const { classes } = this.props;
-
+        const { value } = this.state;
+        
         return (
             <Router>
                 <div>
@@ -61,14 +74,27 @@ class App extends Component {
                         </AppBar>
                     </div>
 
-                    <Switch>
-                        <Route exact path='/' component={Home}/>
-                        <Route exact path='/login' component={LoginScreen}/>
-                        <Route exact path='/users' component={Users}/>
-                        <Route exact path='/user/:id(\d+)' component={UserViewScreen}/>
-                        <Route exact path='/user/:id(\d+)/edit' component={UserEditScreen}/>
-                        <Route exact path='/user/add' component={UserEditScreen}/>
-                    </Switch>
+                    <div style={{height:300}}>
+                        <Switch>
+                            <Route exact path='/' component={Home}/>
+                            <Route exact path='/login' component={LoginScreen}/>
+                            <Route exact path='/users' component={Users}/>
+                            <Route exact path='/user/:id(\d+)' component={UserViewScreen}/>
+                            <Route exact path='/user/:id(\d+)/edit' component={UserEditScreen}/>
+                            <Route exact path='/user/add' component={UserEditScreen}/>
+                        </Switch>
+                    </div>
+
+                    <BottomNavigation
+                        value={value}
+                        onChange={this.handleChange}
+                        showLabels
+                        className={classes.root}
+                    >
+                        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+                        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+                        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+                    </BottomNavigation>
                 </div>
             </Router>
         );

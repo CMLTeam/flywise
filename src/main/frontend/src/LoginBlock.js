@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 import {api} from "./api";
 import {currentUserLoadStarted, currentUserLoadSuccess, logoutStarted, logoutSuccess} from "./redux/actions";
+import Button from 'material-ui/Button';
 
 class LoginBlock extends Component {
     async componentDidMount() {
@@ -21,7 +22,7 @@ class LoginBlock extends Component {
                     Welcome, <b>{this.props.currentUser.username}</b> <a href={'#'} onClick={this.handleLogout}>Logout</a>
                 </span>
                 :
-                <Link to={'/login'}>Login</Link>
+                <Button component={Link} to={'/login'} color="inherit">Login</Button>
         );
     }
 }
@@ -44,4 +45,4 @@ const mapDispatchToProps = dispatch => {
         }
     }
 };
-export default LoginBlock = connect(mapStateToProps, mapDispatchToProps)(LoginBlock);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginBlock);

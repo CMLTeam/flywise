@@ -2,8 +2,31 @@ import React, {Component} from 'react';
 import {api} from './api';
 import {connect} from 'react-redux';
 import {userLoadStarted, userLoadSuccess} from "./redux/actions";
+import PropTypes from 'prop-types';
+import {withStyles} from 'material-ui/styles';
+import MenuItem from 'material-ui/Menu/MenuItem';
+import TextField from 'material-ui/TextField';
+
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
+    menu: {
+        width: 200,
+    },
+});
 
 class UserEditScreen extends Component {
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
+    };
+
     constructor(props) {
         super(props);
         this.userId = props.match.params.id;
@@ -21,7 +44,7 @@ class UserEditScreen extends Component {
             this.props.dispatch(userLoadSuccess(json));
             this.setState({user: this.props.user});
         } else {
-            this.setState({user: {enabled:true, deleted:false}})
+            this.setState({user: {enabled: true, deleted: false}})
         }
     }
 
@@ -43,7 +66,7 @@ class UserEditScreen extends Component {
         try {
             const json = await api.POST('user', user);
             this.props.history.push(`/user/${json.id}`)
-        } catch(e) {
+        } catch (e) {
             // TODO
             alert(e.message)
         }
@@ -53,7 +76,7 @@ class UserEditScreen extends Component {
         try {
             const json = await api.DELETE(`user/${this.userId}`);
             this.props.history.push(`/users`)
-        } catch(e) {
+        } catch (e) {
             // TODO
             alert(e.message)
         }
@@ -61,7 +84,10 @@ class UserEditScreen extends Component {
     handleCancel = async (event) => {
         this.props.history.push(`/users`)
     };
+
     render() {
+        const {classes} = this.props;
+
         return this.state.user ? (
             <div>
                 {
@@ -70,56 +96,69 @@ class UserEditScreen extends Component {
                             <h3>Edit User</h3>
                             <div><b>Id: </b> {this.userId}</div>
                         </div>
-                    : <h3>Add User</h3>
+                        : <h3>Add User</h3>
                 }
-                <div><b>Username: </b>
-                    <input type="text" name={'username'}
-                           value={this.state.user.username||''}
-                           onChange={this.handleOnChange}/></div>
-                <div><b>Enabled: </b>
-                    <input type="checkbox" name={'enabled'}
-                           checked={this.state.user.enabled||false}
-                           onChange={this.handleOnChange}/></div>
-                <div><b>Password: </b>
-                    <input type="text" name={'password'}
-                           value={this.state.user.password||''}
-                           onChange={this.handleOnChange}/></div>
-                <div><b>Password (repeat): </b>
-                    <input type="text" name={'password2'}
-                           value={this.state.user.password2||''}
-                           onChange={this.handleOnChange}/></div>
-                <div><b>Role: </b>
-                    <select name={'role'}
-                           value={this.state.user.role||''}
-                            onChange={this.handleOnChange}>
-                        <option value={''}>--select--</option>
-                        <option value={'ROLE_USER'}>ROLE_USER</option>
-                        <option value={'ROLE_ADMIN'}>ROLE_ADMIN</option>
-                    </select>
-                </div>
-                <div><b>Firstname: </b>
-                    <input type="text" name={'firstName'}
-                           value={this.state.user.firstName||''}
-                           onChange={this.handleOnChange}/></div>
-                <div><b>Lastname: </b>
-                    <input type="text" name={'lastName'}
-                           value={this.state.user.lastName||''}
-                           onChange={this.handleOnChange}/></div>
-                <div><b>Email: </b>
-                    <input type="text" name={'email'}
-                           value={this.state.user.email||''}
-                           onChange={this.handleOnChange}/>
-                </div>
-                <div><b>Phone: </b>
-                    <input type="text" name={'phone'}
-                           value={this.state.user.phone||''}
-                           onChange={this.handleOnChange}/>
-                </div>
-                <button type={'button'} onClick={this.handleSave}>Save</button>
-                {
-                    this.isEdit() && <button type={'button'} onClick={this.handleDelete}>Delete</button>
-                }
-                <button type={'button'} onClick={this.handleCancel}>Cancel</button>
+                <form className={classes.container} noValidate autoComplete="off">
+                    <div>
+                        <TextField
+                            id="username"
+                            name="username"
+                            label="Username"
+                            className={classes.textField}
+                            value={this.state.user.username || ''}
+                            onChange={this.handleChange}
+                            margin="normal"
+                        />
+                    </div>
+                    {/*<div><b>Username: </b>
+                        <input type="text" name={'username'}
+                               value={this.state.user.username || ''}
+                               onChange={this.handleOnChange}/></div>
+                    <div><b>Enabled: </b>
+                        <input type="checkbox" name={'enabled'}
+                               checked={this.state.user.enabled || false}
+                               onChange={this.handleOnChange}/></div>
+                    <div><b>Password: </b>
+                        <input type="text" name={'password'}
+                               value={this.state.user.password || ''}
+                               onChange={this.handleOnChange}/></div>
+                    <div><b>Password (repeat): </b>
+                        <input type="text" name={'password2'}
+                               value={this.state.user.password2 || ''}
+                               onChange={this.handleOnChange}/></div>
+                    <div><b>Role: </b>
+                        <select name={'role'}
+                                value={this.state.user.role || ''}
+                                onChange={this.handleOnChange}>
+                            <option value={''}>--select--</option>
+                            <option value={'ROLE_USER'}>ROLE_USER</option>
+                            <option value={'ROLE_ADMIN'}>ROLE_ADMIN</option>
+                        </select>
+                    </div>
+                    <div><b>Firstname: </b>
+                        <input type="text" name={'firstName'}
+                               value={this.state.user.firstName || ''}
+                               onChange={this.handleOnChange}/></div>
+                    <div><b>Lastname: </b>
+                        <input type="text" name={'lastName'}
+                               value={this.state.user.lastName || ''}
+                               onChange={this.handleOnChange}/></div>
+                    <div><b>Email: </b>
+                        <input type="text" name={'email'}
+                               value={this.state.user.email || ''}
+                               onChange={this.handleOnChange}/>
+                    </div>
+                    <div><b>Phone: </b>
+                        <input type="text" name={'phone'}
+                               value={this.state.user.phone || ''}
+                               onChange={this.handleOnChange}/>
+                    </div>*/}
+                    <button type={'button'} onClick={this.handleSave}>Save</button>
+                    {
+                        this.isEdit() && <button type={'button'} onClick={this.handleDelete}>Delete</button>
+                    }
+                    <button type={'button'} onClick={this.handleCancel}>Cancel</button>
+                </form>
             </div>
         ) : (
             <div>Loading...</div>
@@ -133,5 +172,5 @@ const mapStateToProps = state => {
     }
 };
 
-export default UserEditScreen = connect(mapStateToProps)(UserEditScreen);
+export default withStyles(styles)(connect(mapStateToProps)(UserEditScreen));
 

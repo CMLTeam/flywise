@@ -1,8 +1,9 @@
 package com.cmlteam.flywise.controllers;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.cmlteam.flywise.aux.ForbiddenException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author vgorin
@@ -13,31 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class WebController {
 
-	/*@RequestMapping(value={"/","home"})
-	public String home(){
-		return "home";
-	}*/
-
-	@PreAuthorize("hasRole('USER')")
-	@RequestMapping(value={"/welcome"})
-	public String welcome(){
-		return "welcome";
-	}
-
-	@PreAuthorize("hasRole('ADMIN')")
-	@RequestMapping(value="/admin")
-	public String admin(){
-		return "admin";
-	}
-
-	@RequestMapping(value={"/login"})
-	public String login(){
-		return "login";
-	}
-
 	@RequestMapping(value="/403")
-	public String error403(){
-		return "403";
+	@ResponseBody
+	public void accessDenied(){
+		throw new ForbiddenException("Forbidden");
 	}
 
 	@RequestMapping(value = {"/user/**"})

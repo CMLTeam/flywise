@@ -65,7 +65,7 @@ class App extends Component {
                         </AppBar>
                     </div>
 
-                    <div style={{height:300}}>
+                    <div style={{height1:300}}>
                         <Switch>
                             <Route exact path='/' component={Home}/>
                             <Route exact path='/login' component={LoginScreen}/>

@@ -7,12 +7,13 @@ import App from './App';
 import reducer from './redux/reducer';
 import {createStore} from "redux";
 import {Provider} from 'react-redux'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 const store = createStore(reducer);
+const theme = createMuiTheme();
 
 ReactDOM.render(
-    <MuiThemeProvider>
+    <MuiThemeProvider theme={theme}>
         <Provider store={store}>
             <App/>
         </Provider>

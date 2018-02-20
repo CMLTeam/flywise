@@ -4,8 +4,13 @@ import {connect} from 'react-redux';
 import {userLoadStarted, userLoadSuccess} from "./redux/actions";
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import TextField from 'material-ui/TextField';
+import Checkbox from 'material-ui/Checkbox';
+import Grid from 'material-ui/Grid';
+import {FormControl, FormControlLabel,} from 'material-ui/Form';
+import {InputLabel} from 'material-ui/Input';
+import {MenuItem} from 'material-ui/Menu';
+import Select from 'material-ui/Select';
 
 const styles = theme => ({
     container: {
@@ -16,6 +21,10 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 200,
+    },
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 120,
     },
     menu: {
         width: 200,
@@ -48,7 +57,7 @@ class UserEditScreen extends Component {
         }
     }
 
-    handleOnChange = (event) => {
+    handleChange = (event) => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -99,60 +108,107 @@ class UserEditScreen extends Component {
                         : <h3>Add User</h3>
                 }
                 <form className={classes.container} noValidate autoComplete="off">
-                    <div>
-                        <TextField
-                            id="username"
-                            name="username"
-                            label="Username"
-                            className={classes.textField}
-                            value={this.state.user.username || ''}
-                            onChange={this.handleChange}
-                            margin="normal"
-                        />
-                    </div>
-                    {/*<div><b>Username: </b>
-                        <input type="text" name={'username'}
-                               value={this.state.user.username || ''}
-                               onChange={this.handleOnChange}/></div>
-                    <div><b>Enabled: </b>
-                        <input type="checkbox" name={'enabled'}
-                               checked={this.state.user.enabled || false}
-                               onChange={this.handleOnChange}/></div>
-                    <div><b>Password: </b>
-                        <input type="text" name={'password'}
-                               value={this.state.user.password || ''}
-                               onChange={this.handleOnChange}/></div>
-                    <div><b>Password (repeat): </b>
-                        <input type="text" name={'password2'}
-                               value={this.state.user.password2 || ''}
-                               onChange={this.handleOnChange}/></div>
-                    <div><b>Role: </b>
-                        <select name={'role'}
-                                value={this.state.user.role || ''}
-                                onChange={this.handleOnChange}>
-                            <option value={''}>--select--</option>
-                            <option value={'ROLE_USER'}>ROLE_USER</option>
-                            <option value={'ROLE_ADMIN'}>ROLE_ADMIN</option>
-                        </select>
-                    </div>
-                    <div><b>Firstname: </b>
-                        <input type="text" name={'firstName'}
-                               value={this.state.user.firstName || ''}
-                               onChange={this.handleOnChange}/></div>
-                    <div><b>Lastname: </b>
-                        <input type="text" name={'lastName'}
-                               value={this.state.user.lastName || ''}
-                               onChange={this.handleOnChange}/></div>
-                    <div><b>Email: </b>
-                        <input type="text" name={'email'}
-                               value={this.state.user.email || ''}
-                               onChange={this.handleOnChange}/>
-                    </div>
-                    <div><b>Phone: </b>
-                        <input type="text" name={'phone'}
-                               value={this.state.user.phone || ''}
-                               onChange={this.handleOnChange}/>
-                    </div>*/}
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <TextField
+                                id={'username'}
+                                name={'username'}
+                                label={'Username'}
+                                className={classes.textField}
+                                value={this.state.user.username || ''}
+                                onChange={this.handleChange}
+                                margin="normal"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        id={'enabled'}
+                                        name={'enabled'}
+                                        checked={this.state.user.enabled || false}
+                                        onChange={this.handleChange}/>
+                                }
+                                label={'Enabled'}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id={'password'}
+                                name={'password'}
+                                type={'password'}
+                                label={'Password'}
+                                className={classes.textField}
+                                value={this.state.user.password || ''}
+                                onChange={this.handleChange}
+                                margin="normal"
+                            />
+                            <TextField
+                                id={'password2'}
+                                name={'password2'}
+                                type={'password'}
+                                label={'Password (repeat)'}
+                                className={classes.textField}
+                                value={this.state.user.password2 || ''}
+                                onChange={this.handleChange}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel htmlFor="role">Role</InputLabel>
+                                <Select
+                                    value={this.state.user.role || ''}
+                                    onChange={this.handleChange}
+                                    inputProps={{
+                                        name: 'role',
+                                        id: 'role',
+                                    }}>
+                                    <MenuItem value=""><em>choose</em></MenuItem>
+                                    <MenuItem value={'ROLE_USER'}>ROLE_USER</MenuItem>
+                                    <MenuItem value={'ROLE_ADMIN'}>ROLE_ADMIN</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id={'firstName'}
+                                name={'firstName'}
+                                label={'First name'}
+                                className={classes.textField}
+                                value={this.state.user.firstName || ''}
+                                onChange={this.handleChange}
+                                margin="normal"
+                            />
+                            <TextField
+                                id={'lastName'}
+                                name={'lastName'}
+                                label={'Last name'}
+                                className={classes.textField}
+                                value={this.state.user.lastName || ''}
+                                onChange={this.handleChange}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id={'email'}
+                                name={'email'}
+                                label={'Email'}
+                                className={classes.textField}
+                                value={this.state.user.email || ''}
+                                onChange={this.handleChange}
+                                margin="normal"
+                            />
+                            <TextField
+                                id={'phone'}
+                                name={'phone'}
+                                label={'Phone'}
+                                className={classes.textField}
+                                value={this.state.user.phone || ''}
+                                onChange={this.handleChange}
+                                margin="normal"
+                            />
+                        </Grid>
+                    </Grid>
                     <button type={'button'} onClick={this.handleSave}>Save</button>
                     {
                         this.isEdit() && <button type={'button'} onClick={this.handleDelete}>Delete</button>

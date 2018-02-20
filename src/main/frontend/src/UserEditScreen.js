@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
-import {FormControl, FormControlLabel,} from 'material-ui/Form';
+import {FormControl, FormControlLabel} from 'material-ui/Form';
 import {InputLabel} from 'material-ui/Input';
 import {MenuItem} from 'material-ui/Menu';
 import Select from 'material-ui/Select';

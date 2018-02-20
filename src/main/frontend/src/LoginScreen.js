@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {api} from './api';
 import {loginStarted, loginSuccess} from "./redux/actions";
 import {connect} from "react-redux";
+import TextField from 'material-ui/TextField';
+import Grid from 'material-ui/Grid';
+import Button from 'material-ui/Button';
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -9,7 +12,7 @@ class LoginScreen extends Component {
         this.state = {
         };
     }
-    handleOnChange = (event) => {
+    handleChange = (event) => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -26,19 +29,28 @@ class LoginScreen extends Component {
     };
     render() {
         return (
-            <div>
+            <div style={{textAlign: 'center'}}>
                 <h2>Login</h2>
-                <div>
-                    <div>
-                        Login: <input type={'text'} name={'login'}
-                                      value={this.state.login||""} onChange={this.handleOnChange}/>
-                    </div>
-                    <div>
-                        Password: <input type={'password'} name={'password'}
-                                         value={this.state.password||""} onChange={this.handleOnChange}/>
-                    </div>
-                    <button type={'button'} onClick={this.doLogin}>Login</button>
-                </div>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <TextField
+                            name={'login'}
+                            label={'Login'}
+                            value={this.state.login||""}
+                            onChange={this.handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            type={'password'}
+                            name={'password'}
+                            label={'Password'}
+                            value={this.state.password||""}
+                            onChange={this.handleChange}/>
+                    </Grid>
+                </Grid>
+                <br/>
+                <Button variant={'raised'} color={'primary'} onClick={this.doLogin}>Login</Button>
             </div>
         );
     }

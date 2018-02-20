@@ -7,6 +7,7 @@ import {withStyles} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import Grid from 'material-ui/Grid';
+import Button from 'material-ui/Button';
 import {FormControl, FormControlLabel,} from 'material-ui/Form';
 import {InputLabel} from 'material-ui/Input';
 import {MenuItem} from 'material-ui/Menu';
@@ -209,11 +210,11 @@ class UserEditScreen extends Component {
                             />
                         </Grid>
                     </Grid>
-                    <button type={'button'} onClick={this.handleSave}>Save</button>
+                    <Button variant={'raised'} color={'primary'} onClick={this.handleSave}>Save</Button>
                     {
-                        this.isEdit() && <button type={'button'} onClick={this.handleDelete}>Delete</button>
+                        this.isEdit() && <Button variant={'raised'} color={'secondary'} onClick={this.handleDelete}>Delete</Button>
                     }
-                    <button type={'button'} onClick={this.handleCancel}>Cancel</button>
+                    <Button variant={'raised'} onClick={this.handleCancel}>Cancel</Button>
                 </form>
             </div>
         ) : (

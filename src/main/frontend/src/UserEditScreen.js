@@ -12,6 +12,8 @@ import {FormControl, FormControlLabel,} from 'material-ui/Form';
 import {InputLabel} from 'material-ui/Input';
 import {MenuItem} from 'material-ui/Menu';
 import Select from 'material-ui/Select';
+import DeleteIcon from 'material-ui-icons/Delete';
+import SaveIcon from 'material-ui-icons/Save';
 
 const styles = theme => ({
     container: {
@@ -29,6 +31,15 @@ const styles = theme => ({
     },
     menu: {
         width: 200,
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    leftIcon: {
+        marginRight: theme.spacing.unit,
+    },
+    rightIcon: {
+        marginLeft: theme.spacing.unit,
     },
 });
 
@@ -210,11 +221,17 @@ class UserEditScreen extends Component {
                             />
                         </Grid>
                     </Grid>
-                    <Button variant={'raised'} color={'primary'} onClick={this.handleSave}>Save</Button>
+                    <Button className={classes.button} variant={'raised'} color={'primary'} onClick={this.handleSave}>
+                        Save
+                        <SaveIcon className={classes.rightIcon}/>
+                    </Button>
                     {
-                        this.isEdit() && <Button variant={'raised'} color={'secondary'} onClick={this.handleDelete}>Delete</Button>
+                        this.isEdit() && <Button className={classes.button} variant={'raised'} color={'secondary'} onClick={this.handleDelete}>
+                            Delete
+                            <DeleteIcon className={classes.rightIcon}/>
+                        </Button>
                     }
-                    <Button variant={'raised'} onClick={this.handleCancel}>Cancel</Button>
+                    <Button className={classes.button} variant={'raised'} onClick={this.handleCancel}>Cancel</Button>
                 </form>
             </div>
         ) : (

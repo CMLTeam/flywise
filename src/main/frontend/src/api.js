@@ -5,8 +5,8 @@ const port = window && window.location && window.location.port;
 
 if (hostname === 'localhost') {
     apiRoot = 'http://localhost:8080';
-} else if (hostname === 'flywise.world') {
-    apiRoot = 'https://flywise.world';
+} else if (hostname.indexOf('flywise.world') >= 0) {
+    apiRoot = 'https://' + hostname;
 } else {
     apiRoot = process.env.REACT_APP_API_ROOT || 'http://localhost:8080';
 }

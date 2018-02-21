@@ -99,10 +99,14 @@ class UserEditScreen extends Component {
         let valid = true;
         this.setState({errors: {}});
         const errors = {};
-        const {password, password2} = this.state.user;
+        const {password, password2, email} = this.state.user;
         if ((password || password2) && password !== password2) {
             valid = false;
             errors.password = errors.password2 = "Password and repeat password don't match";
+        }
+        if (email.indexOf('@') < 0) {
+            valid = false;
+            errors.email = 'Invalid email format';
         }
         this.setState({errors});
         return valid;
@@ -228,6 +232,8 @@ class UserEditScreen extends Component {
                                 value={this.state.user.email || ''}
                                 onChange={this.handleChange}
                                 margin="normal"
+                                error={!!this.state.errors.email}
+                                helperText={this.state.errors.email}
                             />
                             <TextField
                                 id={'phone'}

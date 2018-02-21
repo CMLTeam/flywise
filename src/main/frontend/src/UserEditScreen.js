@@ -51,7 +51,7 @@ class UserEditScreen extends Component {
     constructor(props) {
         super(props);
         this.userId = props.match.params.id;
-        this.state = {};
+        this.state = {errors: {}};
     }
 
     isEdit() {
@@ -83,6 +83,8 @@ class UserEditScreen extends Component {
     };
 
     handleSave = async (event) => {
+        if (!this.validate())
+            return;
         const user = this.state.user;
         try {
             const json = await api.POST('user', user);
@@ -91,6 +93,20 @@ class UserEditScreen extends Component {
             // TODO
             alert(e.message)
         }
+    };
+
+    validate = () => {
+        let valid = true;
+        this.setState({errors: {}});
+        const errors = {};
+        const {password, password2} = this.state.user;
+        if ((password || password2) && password !== password2) {
+            valid = false;
+            errors.password = true;
+            errors.password2 = true;
+        }
+        this.setState({errors});
+        return valid;
     };
 
     handleDelete = async (event) => {
@@ -152,6 +168,7 @@ class UserEditScreen extends Component {
                                 value={this.state.user.password || ''}
                                 onChange={this.handleChange}
                                 margin="normal"
+                                error={this.state.errors.password}
                             />
                             <TextField
                                 id={'password2'}
@@ -162,6 +179,7 @@ class UserEditScreen extends Component {
                                 value={this.state.user.password2 || ''}
                                 onChange={this.handleChange}
                                 margin="normal"
+                                error={this.state.errors.password2}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -226,7 +244,8 @@ class UserEditScreen extends Component {
                         <SaveIcon className={classes.rightIcon}/>
                     </Button>
                     {
-                        this.isEdit() && <Button className={classes.button} variant={'raised'} color={'secondary'} onClick={this.handleDelete}>
+                        this.isEdit() && <Button className={classes.button} variant={'raised'} color={'secondary'}
+                                                 onClick={this.handleDelete}>
                             Delete
                             <DeleteIcon className={classes.rightIcon}/>
                         </Button>

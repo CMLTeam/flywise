@@ -102,8 +102,7 @@ class UserEditScreen extends Component {
         const {password, password2} = this.state.user;
         if ((password || password2) && password !== password2) {
             valid = false;
-            errors.password = true;
-            errors.password2 = true;
+            errors.password = errors.password2 = "Password and repeat password don't match";
         }
         this.setState({errors});
         return valid;
@@ -168,7 +167,8 @@ class UserEditScreen extends Component {
                                 value={this.state.user.password || ''}
                                 onChange={this.handleChange}
                                 margin="normal"
-                                error={this.state.errors.password}
+                                error={!!this.state.errors.password}
+                                helperText={this.state.errors.password}
                             />
                             <TextField
                                 id={'password2'}
@@ -179,7 +179,8 @@ class UserEditScreen extends Component {
                                 value={this.state.user.password2 || ''}
                                 onChange={this.handleChange}
                                 margin="normal"
-                                error={this.state.errors.password2}
+                                error={!!this.state.errors.password2}
+                                helperText={this.state.errors.password2}
                             />
                         </Grid>
                         <Grid item xs={12}>

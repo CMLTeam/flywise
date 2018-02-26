@@ -19,7 +19,7 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         flexDirection: 'column',
-        justifyContent: 'center',
+        alignItems: 'center'
     },
     textField: {
         marginLeft: theme.spacing.unit,
@@ -160,6 +160,7 @@ class UserEditScreen extends Component {
                             </Select>
                         </FormControl>
                     </div>
+                    <div>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -170,6 +171,7 @@ class UserEditScreen extends Component {
                         }
                         label={'Enabled'}
                     />
+                    </div>
                     <div>
                         <TextField
                             id={'password'}
@@ -238,7 +240,7 @@ class UserEditScreen extends Component {
                             margin="normal"
                         />
                     </div>
-                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <div style={{display: 'flex', justifyContent: 'center', padding: 15}}>
                         <Button className={classes.button} variant={'raised'} color={'primary'}
                                 onClick={this.handleSave}>
                             Save

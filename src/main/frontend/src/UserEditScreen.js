@@ -127,15 +127,13 @@ class UserEditScreen extends Component {
 
         return this.state.user ? (
             <div>
-                {
-                    this.isEdit()
-                        ? <div>
-                            <Typography variant="display1" align={'center'}>
-                                Edit User #{this.userId}
-                            </Typography>
-                        </div>
-                        : <h3>Add User</h3>
-                }
+                <Typography variant="display1" align={'center'}>
+                    {
+                        this.isEdit() ?
+                            <span>Edit User #{this.userId}</span>
+                            : 'Add User'
+                    }
+                </Typography>
                 <form className={classes.container} noValidate autoComplete="off">
                     <div>
                         <TextField
@@ -163,16 +161,16 @@ class UserEditScreen extends Component {
                         </FormControl>
                     </div>
                     <div>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                id={'enabled'}
-                                name={'enabled'}
-                                checked={this.state.user.enabled || false}
-                                onChange={this.handleChange}/>
-                        }
-                        label={'Enabled'}
-                    />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    id={'enabled'}
+                                    name={'enabled'}
+                                    checked={this.state.user.enabled || false}
+                                    onChange={this.handleChange}/>
+                            }
+                            label={'Enabled'}
+                        />
                     </div>
                     <div>
                         <TextField

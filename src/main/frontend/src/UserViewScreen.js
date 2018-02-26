@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {api} from './api';
 import {Link} from 'react-router-dom';
 import {userLoadStarted, userLoadSuccess} from "./redux/actions";
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 class UserViewScreen extends Component {
     constructor(props) {

@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {withStyles} from "material-ui/styles/index";
 import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
 
 const styles = theme => ({
     root: {
@@ -43,7 +44,8 @@ class UsersScreen extends Component {
                     Users
                 </Typography>
                 {
-                    this.props.currentUser.role === 'ROLE_ADMIN' && <Link to={`/user/add`}>Add</Link>
+                    this.props.currentUser.role === 'ROLE_ADMIN' &&
+                    <Button variant="raised" size={'small'} color="primary" component={Link} to={`/user/add`}>Add</Button>
                 }
                 <Table className={classes.table}>
                     <TableHead>

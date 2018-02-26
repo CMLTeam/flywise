@@ -13,6 +13,7 @@ import {MenuItem} from 'material-ui/Menu';
 import Select from 'material-ui/Select';
 import DeleteIcon from 'material-ui-icons/Delete';
 import SaveIcon from 'material-ui-icons/Save';
+import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
     container: {
@@ -129,12 +130,13 @@ class UserEditScreen extends Component {
                 {
                     this.isEdit()
                         ? <div>
-                            <h3>Edit User</h3>
-                            <div><b>Id: </b> {this.userId}</div>
+                            <Typography variant="display1" align={'center'}>
+                                Edit User #{this.userId}
+                            </Typography>
                         </div>
                         : <h3>Add User</h3>
                 }
-                <form className={classes.container} novalidate autocomplete="off">
+                <form className={classes.container} noValidate autoComplete="off">
                     <div>
                         <TextField
                             id={'username'}

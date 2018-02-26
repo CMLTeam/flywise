@@ -6,6 +6,7 @@ import {usersLoadStarted, usersLoadSuccess} from "./redux/actions";
 import {Link} from "react-router-dom";
 import {withStyles} from "material-ui/styles/index";
 import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
+import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
     root: {
@@ -38,7 +39,9 @@ class UsersScreen extends Component {
 
         return (
             <div className="users">
-                <h2>Users</h2>
+                <Typography variant="display1" align={'center'}>
+                    Users
+                </Typography>
                 {
                     this.props.currentUser.role === 'ROLE_ADMIN' && <Link to={`/user/add`}>Add</Link>
                 }

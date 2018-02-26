@@ -67,7 +67,7 @@ class App extends Component {
                         </AppBar>
                     </div>
 
-                    <div>
+                    <div style={{padding: 15}}>
                         <Switch>
                             <Route exact path='/' component={Home}/>
                             <Route exact path='/login' component={LoginScreen}/>

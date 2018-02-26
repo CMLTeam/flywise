@@ -67,7 +67,7 @@ class App extends Component {
                         </AppBar>
                     </div>
 
-                    <div style={{height1: 300}}>
+                    <div>
                         <Switch>
                             <Route exact path='/' component={Home}/>
                             <Route exact path='/login' component={LoginScreen}/>
@@ -77,12 +77,14 @@ class App extends Component {
                             <Route exact path='/user/add' component={UserEditScreen}/>
                         </Switch>
                     </div>
+                    <div style={{height:56}}> </div>
 
                     <BottomNavigation
                         value={value}
                         onChange={this.handleChange}
                         showLabels
                         className={classes.root}
+                        style={{position: "fixed", bottom:0, width:'100%'}}
                     >
                         <BottomNavigationAction label="Users" icon={<UsersIcon/>} component={Link} to={'/users'}/>
                         <BottomNavigationAction label="Home" icon={<HomeIcon/>} component={Link} to={'/'}/>

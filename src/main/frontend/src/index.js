@@ -7,7 +7,7 @@ import App from './App';
 import reducer from './redux/reducer';
 import {createStore} from "redux";
 import {Provider} from 'react-redux'
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import {createMuiTheme, MuiThemeProvider} from 'material-ui/styles';
 
 const store = createStore(reducer);
 const theme = createMuiTheme();

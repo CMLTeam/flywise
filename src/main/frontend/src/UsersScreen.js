@@ -8,6 +8,9 @@ import {withStyles} from "material-ui/styles/index";
 import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import EditIcon from 'material-ui-icons/Edit';
+import VisibilityIcon from 'material-ui-icons/Visibility';
 
 const styles = theme => ({
     root: {
@@ -66,10 +69,17 @@ class UsersScreen extends Component {
                                     <TableCell>{u.firstName} {u.lastName}</TableCell>
                                     <TableCell>{u.role}</TableCell>
                                     <TableCell>
-                                        <Link to={`/user/${u.id}`}>View</Link>
-                                        {' '}
+                                        <IconButton className={classes.button} color={'default'} aria-label="View"
+                                                    component={Link}
+                                                    to={`/user/${u.id}`}>
+                                            <VisibilityIcon />
+                                        </IconButton>
                                         {
-                                            this.canEdit(u) && <Link to={`/user/${u.id}/edit`}>Edit</Link>
+                                            this.canEdit(u) && <IconButton className={classes.button} color={'default'} aria-label="Edit"
+                                                                          component={Link}
+                                                                          to={`/user/${u.id}/edit`}>
+                                                <EditIcon />
+                                            </IconButton>
                                         }
                                     </TableCell>
                                 </TableRow>

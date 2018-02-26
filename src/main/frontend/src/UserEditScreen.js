@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
-import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import {FormControl, FormControlLabel} from 'material-ui/Form';
 import {InputLabel} from 'material-ui/Input';
@@ -19,27 +18,24 @@ const styles = theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
+        flexDirection: 'column',
+        justifyContent: 'center',
     },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 200,
-    },
-    formControl: {
-        margin: theme.spacing.unit,
-        minWidth: 120,
-    },
-    menu: {
-        width: 200,
+        width: 400,
     },
     button: {
         margin: theme.spacing.unit,
     },
     leftIcon: {
         marginRight: theme.spacing.unit,
+        height: 20,
     },
     rightIcon: {
         marginLeft: theme.spacing.unit,
+        height: 20,
     },
 });
 
@@ -138,126 +134,126 @@ class UserEditScreen extends Component {
                         </div>
                         : <h3>Add User</h3>
                 }
-                <form className={classes.container} noValidate autoComplete="off">
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <TextField
-                                id={'username'}
-                                name={'username'}
-                                label={'Username'}
-                                className={classes.textField}
-                                value={this.state.user.username || ''}
+                <form className={classes.container} novalidate autocomplete="off">
+                    <div>
+                        <TextField
+                            id={'username'}
+                            name={'username'}
+                            label={'Username'}
+                            className={classes.textField}
+                            value={this.state.user.username || ''}
+                            onChange={this.handleChange}
+                            margin="normal"
+                        />
+                        <FormControl className={classes.textField}>
+                            <InputLabel htmlFor="role">Role</InputLabel>
+                            <Select
+                                value={this.state.user.role || ''}
                                 onChange={this.handleChange}
-                                margin="normal"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        id={'enabled'}
-                                        name={'enabled'}
-                                        checked={this.state.user.enabled || false}
-                                        onChange={this.handleChange}/>
-                                }
-                                label={'Enabled'}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id={'password'}
-                                name={'password'}
-                                type={'password'}
-                                label={'Password'}
-                                className={classes.textField}
-                                value={this.state.user.password || ''}
-                                onChange={this.handleChange}
-                                margin="normal"
-                                error={!!this.state.errors.password}
-                                helperText={this.state.errors.password}
-                            />
-                            <TextField
-                                id={'password2'}
-                                name={'password2'}
-                                type={'password'}
-                                label={'Password (repeat)'}
-                                className={classes.textField}
-                                value={this.state.user.password2 || ''}
-                                onChange={this.handleChange}
-                                margin="normal"
-                                error={!!this.state.errors.password2}
-                                helperText={this.state.errors.password2}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControl className={classes.formControl}>
-                                <InputLabel htmlFor="role">Role</InputLabel>
-                                <Select
-                                    value={this.state.user.role || ''}
-                                    onChange={this.handleChange}
-                                    inputProps={{
-                                        name: 'role',
-                                        id: 'role',
-                                    }}>
-                                    <MenuItem value=""><em>choose</em></MenuItem>
-                                    <MenuItem value={'ROLE_USER'}>ROLE_USER</MenuItem>
-                                    <MenuItem value={'ROLE_ADMIN'}>ROLE_ADMIN</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id={'firstName'}
-                                name={'firstName'}
-                                label={'First name'}
-                                className={classes.textField}
-                                value={this.state.user.firstName || ''}
-                                onChange={this.handleChange}
-                                margin="normal"
-                            />
-                            <TextField
-                                id={'lastName'}
-                                name={'lastName'}
-                                label={'Last name'}
-                                className={classes.textField}
-                                value={this.state.user.lastName || ''}
-                                onChange={this.handleChange}
-                                margin="normal"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id={'email'}
-                                name={'email'}
-                                label={'Email'}
-                                className={classes.textField}
-                                value={this.state.user.email || ''}
-                                onChange={this.handleChange}
-                                margin="normal"
-                                error={!!this.state.errors.email}
-                                helperText={this.state.errors.email}
-                            />
-                            <TextField
-                                id={'phone'}
-                                name={'phone'}
-                                label={'Phone'}
-                                className={classes.textField}
-                                value={this.state.user.phone || ''}
-                                onChange={this.handleChange}
-                                margin="normal"
-                            />
-                        </Grid>
-                    </Grid>
-                    <Button className={classes.button} variant={'raised'} color={'primary'} onClick={this.handleSave}>
-                        Save
-                        <SaveIcon className={classes.rightIcon}/>
-                    </Button>
-                    {
-                        this.isEdit() && <Button className={classes.button} variant={'raised'} color={'secondary'}
-                                                 onClick={this.handleDelete}>
-                            Delete
-                            <DeleteIcon className={classes.rightIcon}/>
+                                inputProps={{
+                                    name: 'role',
+                                    id: 'role',
+                                }}>
+                                <MenuItem value=""><em>choose</em></MenuItem>
+                                <MenuItem value={'ROLE_USER'}>ROLE_USER</MenuItem>
+                                <MenuItem value={'ROLE_ADMIN'}>ROLE_ADMIN</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                id={'enabled'}
+                                name={'enabled'}
+                                checked={this.state.user.enabled || false}
+                                onChange={this.handleChange}/>
+                        }
+                        label={'Enabled'}
+                    />
+                    <div>
+                        <TextField
+                            id={'password'}
+                            name={'password'}
+                            type={'password'}
+                            label={'Password'}
+                            className={classes.textField}
+                            value={this.state.user.password || ''}
+                            onChange={this.handleChange}
+                            margin="normal"
+                            error={!!this.state.errors.password}
+                            helperText={this.state.errors.password}
+                        />
+                        <TextField
+                            id={'password2'}
+                            name={'password2'}
+                            type={'password'}
+                            label={'Password (repeat)'}
+                            className={classes.textField}
+                            value={this.state.user.password2 || ''}
+                            onChange={this.handleChange}
+                            margin="normal"
+                            error={!!this.state.errors.password2}
+                            helperText={this.state.errors.password2}
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                            id={'firstName'}
+                            name={'firstName'}
+                            label={'First name'}
+                            className={classes.textField}
+                            value={this.state.user.firstName || ''}
+                            onChange={this.handleChange}
+                            margin="normal"
+                        />
+                        <TextField
+                            id={'lastName'}
+                            name={'lastName'}
+                            label={'Last name'}
+                            className={classes.textField}
+                            value={this.state.user.lastName || ''}
+                            onChange={this.handleChange}
+                            margin="normal"
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                            id={'email'}
+                            name={'email'}
+                            label={'Email'}
+                            className={classes.textField}
+                            value={this.state.user.email || ''}
+                            onChange={this.handleChange}
+                            margin="normal"
+                            error={!!this.state.errors.email}
+                            helperText={this.state.errors.email}
+                        />
+                        <TextField
+                            id={'phone'}
+                            name={'phone'}
+                            label={'Phone'}
+                            className={classes.textField}
+                            value={this.state.user.phone || ''}
+                            onChange={this.handleChange}
+                            margin="normal"
+                        />
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <Button className={classes.button} variant={'raised'} color={'primary'}
+                                onClick={this.handleSave}>
+                            Save
+                            <SaveIcon className={classes.rightIcon}/>
                         </Button>
-                    }
-                    <Button className={classes.button} variant={'raised'} onClick={this.handleCancel}>Cancel</Button>
+                        {
+                            this.isEdit() && <Button className={classes.button} variant={'raised'} color={'secondary'}
+                                                     onClick={this.handleDelete}>
+                                Delete
+                                <DeleteIcon className={classes.rightIcon}/>
+                            </Button>
+                        }
+                        <Button className={classes.button} variant={'raised'}
+                                onClick={this.handleCancel}>Cancel</Button>
+                    </div>
                 </form>
             </div>
         ) : (

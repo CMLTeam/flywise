@@ -16,9 +16,9 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import BottomNavigation, {BottomNavigationAction} from 'material-ui/BottomNavigation';
-import FavoriteIcon from 'material-ui-icons/Favorite';
 import HomeIcon from 'material-ui-icons/Home';
 import UsersIcon from 'material-ui-icons/People';
+import Reboot from 'material-ui/Reboot';
 
 const styles = {
     root: {
@@ -33,6 +33,7 @@ const styles = {
         marginRight: 20,
     },
 };
+
 class App extends Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
@@ -41,31 +42,32 @@ class App extends Component {
         value: 0,
     };
     handleChange = (event, value) => {
-        this.setState({ value });
+        this.setState({value});
     };
 
     render() {
-        const { classes } = this.props;
-        const { value } = this.state;
+        const {classes} = this.props;
+        const {value} = this.state;
 
         return (
             <Router>
                 <div>
+                    <Reboot/>
                     <div className={classes.root}>
                         <AppBar position="static">
                             <Toolbar>
                                 <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                                    <MenuIcon />
+                                    <MenuIcon/>
                                 </IconButton>
                                 <Typography variant="title" color="inherit" className={classes.flex}>
-                                    <Link to={'/'} style={ {color:'#fff', textDecoration:'none'} }>FlyWise</Link>
+                                    <Link to={'/'} style={{color: '#fff', textDecoration: 'none'}}>FlyWise</Link>
                                 </Typography>
-                                <LoginBlock />
+                                <LoginBlock/>
                             </Toolbar>
                         </AppBar>
                     </div>
 
-                    <div style={{height1:300}}>
+                    <div style={{height1: 300}}>
                         <Switch>
                             <Route exact path='/' component={Home}/>
                             <Route exact path='/login' component={LoginScreen}/>
@@ -82,17 +84,16 @@ class App extends Component {
                         showLabels
                         className={classes.root}
                     >
-                        <BottomNavigationAction label="Users" icon={<UsersIcon />} component={Link} to={'/users'} />
-                        <BottomNavigationAction label="Home" icon={<HomeIcon />} component={Link} to={'/'} />
-                        {/*<BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />*/}
+                        <BottomNavigationAction label="Users" icon={<UsersIcon/>} component={Link} to={'/users'}/>
+                        <BottomNavigationAction label="Home" icon={<HomeIcon/>} component={Link} to={'/'}/>
                     </BottomNavigation>
                 </div>
             </Router>
         );
     }
 }
+
 const mapStateToProps = state => {
-    return {
-    }
+    return {}
 };
 export default withStyles(styles)(connect(mapStateToProps)(App));

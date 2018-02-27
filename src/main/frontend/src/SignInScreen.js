@@ -22,7 +22,7 @@ class SignInScreen extends Component {
             [name]: value
         });
     };
-    doLogin = async (event) => {
+    doSignIn = async (event) => {
         this.props.doLoginCall({
             login: this.state.login,
             password: this.state.password
@@ -53,7 +53,7 @@ class SignInScreen extends Component {
                     </Grid>
                 </Grid>
                 <br/>
-                <Button variant={'raised'} color={'primary'} onClick={this.doLogin}>Login</Button>
+                <Button variant={'raised'} color={'primary'} onClick={this.doSignIn}>Sign In</Button>
             </div>
         );
     }

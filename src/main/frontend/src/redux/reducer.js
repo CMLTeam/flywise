@@ -57,7 +57,7 @@ const currentUser = (state = initialState.currentUser, action) => {
 const error = (state = initialState.error, action) => {
     switch (action.type) {
         case LOGIN_FAILED:
-            return action.error;
+            return 'Invalid email or password';
         case ROUTE_CHANGED:
             return initialState.error;
         default:

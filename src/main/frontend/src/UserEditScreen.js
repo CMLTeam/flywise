@@ -101,7 +101,7 @@ class UserEditScreen extends Component {
             valid = false;
             errors.password = errors.password2 = "Password and repeat password don't match";
         }
-        if (email.indexOf('@') < 0) {
+        if (email && email.indexOf('@') < 0) {
             valid = false;
             errors.email = 'Invalid email format';
         }

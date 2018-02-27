@@ -35,6 +35,9 @@ class SignInScreen extends Component {
                 <Typography variant="display1" align={'center'}>
                     Sign In
                 </Typography>
+                <Typography variant="subheading" align={'center'} color={'error'}>
+                    {this.props.error}
+                </Typography>
                 <Grid container>
                     <Grid item xs={12}>
                         <TextField
@@ -59,22 +62,19 @@ class SignInScreen extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        currentUser: state.currentUser
-    }
-};
-const mapDispatchToProps = dispatch => {
-    return {
-        doLoginCall: async (loginData) => {
-            dispatch(loginStarted(loginData));
-            try {
-                let json = await api.POST('login', loginData);
-                dispatch(loginSuccess(json));
-            } catch (e) {
-                dispatch(loginFailed(e.message));
-            }
+const mapStateToProps = state => ({
+    currentUser: state.currentUser,
+    error: state.error
+});
+const mapDispatchToProps = dispatch => ({
+    doLoginCall: async (loginData) => {
+        dispatch(loginStarted(loginData));
+        try {
+            let json = await api.POST('login', loginData);
+            dispatch(loginSuccess(json));
+        } catch (e) {
+            dispatch(loginFailed(e.message));
         }
     }
-};
+});
 export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);

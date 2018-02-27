@@ -1,10 +1,12 @@
 import {
     CURRENT_USER_LOAD_STARTED,
-    CURRENT_USER_LOAD_SUCCESS, LOGIN_FAILED,
+    CURRENT_USER_LOAD_SUCCESS,
+    LOGIN_FAILED,
     LOGIN_STARTED,
     LOGIN_SUCCESS,
     LOGOUT_STARTED,
     LOGOUT_SUCCESS,
+    ROUTE_CHANGED,
     USER_LOAD_STARTED,
     USER_LOAD_SUCCESS,
     USERS_LOAD_STARTED,
@@ -60,6 +62,12 @@ export const logoutStarted = () => ({
 
 export const logoutSuccess = () => ({
     type: LOGOUT_SUCCESS,
+});
+
+export const routeChanged = (location, action) => ({
+    type: ROUTE_CHANGED,
+    location,
+    action,
 });
 
 

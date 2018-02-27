@@ -20,6 +20,7 @@ import BottomNavigation, {BottomNavigationAction} from 'material-ui/BottomNaviga
 import HomeIcon from 'material-ui-icons/Home';
 import UsersIcon from 'material-ui-icons/People';
 import Reboot from 'material-ui/Reboot';
+import RouterListener from "./RouterListener";
 
 const styles = {
     root: {
@@ -54,6 +55,7 @@ class App extends Component {
             <Router>
                 <div>
                     <Reboot/>
+                    <RouterListener/>
                     <div className={classes.root}>
                         <AppBar position="static">
                             <Toolbar>
@@ -97,7 +99,5 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {}
-};
+const mapStateToProps = state => ({});
 export default withStyles(styles)(connect(mapStateToProps)(App));

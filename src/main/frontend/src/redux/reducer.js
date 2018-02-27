@@ -1,9 +1,11 @@
 import {combineReducers} from "redux";
 import {
     CURRENT_USER_LOAD_STARTED,
-    CURRENT_USER_LOAD_SUCCESS, LOGIN_FAILED,
+    CURRENT_USER_LOAD_SUCCESS,
+    LOGIN_FAILED,
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
+    ROUTE_CHANGED,
     USER_LOAD_STARTED,
     USER_LOAD_SUCCESS,
     USERS_LOAD_STARTED,
@@ -13,7 +15,8 @@ import {
 const initialState = {
     currentUser: {},
     selectedUser: null, // view/edit
-    users: []
+    users: [],
+    error: null,
 };
 
 const users = (state = initialState.users, action) => {
@@ -46,8 +49,17 @@ const currentUser = (state = initialState.currentUser, action) => {
         case CURRENT_USER_LOAD_SUCCESS:
         case LOGIN_SUCCESS:
             return action.currentUser;
-        case LOGIN_FAILED:
+        default:
             return state;
+    }
+};
+
+const error = (state = initialState.error, action) => {
+    switch (action.type) {
+        case LOGIN_FAILED:
+            return action.error;
+        case ROUTE_CHANGED:
+            return initialState.error;
         default:
             return state;
     }
@@ -57,6 +69,7 @@ const reducer = combineReducers({
     users,
     selectedUser,
     currentUser,
+    error,
 });
 
 export default reducer;

@@ -6,7 +6,7 @@ import Home from "./Home";
 import UsersScreen from "./UsersScreen";
 import UserViewScreen from "./UserViewScreen";
 import UserEditScreen from "./UserEditScreen";
-import LoginScreen from "./LoginScreen";
+import SignInScreen from "./SignInScreen";
 import LoginBlock from "./LoginBlock";
 import {connect} from "react-redux";
 import {withStyles} from 'material-ui/styles';
@@ -70,7 +70,7 @@ class App extends Component {
                     <div style={{padding: 15}}>
                         <Switch>
                             <Route exact path='/' component={Home}/>
-                            <Route exact path='/login' component={LoginScreen}/>
+                            <Route exact path='/signin' component={SignInScreen}/>
                             <Route exact path='/users' component={UsersScreen}/>
                             <Route exact path='/user/:id(\d+)' component={UserViewScreen}/>
                             <Route exact path='/user/:id(\d+)/edit' component={UserEditScreen}/>

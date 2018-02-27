@@ -5,8 +5,9 @@ import {connect} from "react-redux";
 import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 
-class LoginScreen extends Component {
+class SignInScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +31,9 @@ class LoginScreen extends Component {
     render() {
         return (
             <div style={{textAlign: 'center'}}>
-                <h2>Login</h2>
+                <Typography variant="display1" align={'center'}>
+                Sign In
+                </Typography>
                 <Grid container>
                     <Grid item xs={12}>
                         <TextField
@@ -69,4 +72,4 @@ const mapDispatchToProps = dispatch => {
         }
     }
 };
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);

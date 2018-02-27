@@ -23,10 +23,14 @@ class LoginBlock extends Component {
                     <Button onClick={this.handleLogout} color={'inherit'}>Logout</Button>
                 </span>
                 :
-                <Button component={Link} to={'/login'} color={'inherit'}>Login</Button>
+                <span>
+                <Button component={Link} to={'/signin'} color={'inherit'}>Sign In</Button>
+                <Button component={Link} to={'/signup'} color={'inherit'}>Sign Up</Button>
+                </span>
         );
     }
 }
+
 const mapStateToProps = state => {
     return {
         currentUser: state.currentUser

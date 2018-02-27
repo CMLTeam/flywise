@@ -36,11 +36,10 @@ class SignUpScreen extends Component {
                 <Grid container>
                     <Grid item xs={12}>
                         <TextField
-                            name={'login'}
-                            label={'Login *'}
-                            value={this.state.login || ""}
-                            onChange={this.handleChange}
-                        />
+                            name={'email'}
+                            label={'Email *'}
+                            value={this.state.email || ""}
+                            onChange={this.handleChange}/>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -56,13 +55,6 @@ class SignUpScreen extends Component {
                             name={'password2'}
                             label={'Password (confirm) *'}
                             value={this.state.password2 || ""}
-                            onChange={this.handleChange}/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            name={'email'}
-                            label={'Email *'}
-                            value={this.state.email || ""}
                             onChange={this.handleChange}/>
                     </Grid>
                 </Grid>

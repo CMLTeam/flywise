@@ -20,7 +20,7 @@ class LoginBlock extends Component {
             this.props.currentUser.id ?
                 <span>
                     Welcome, <b>{this.props.currentUser.username}</b>
-                    <Button onClick={this.handleLogout} color={'inherit'}>Logout</Button>
+                    <Button onClick={this.handleLogout} color={'inherit'}>Sign Out</Button>
                 </span>
                 :
                 <span>

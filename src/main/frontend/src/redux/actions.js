@@ -1,6 +1,6 @@
 import {
     CURRENT_USER_LOAD_STARTED,
-    CURRENT_USER_LOAD_SUCCESS,
+    CURRENT_USER_LOAD_SUCCESS, LOGIN_FAILED,
     LOGIN_STARTED,
     LOGIN_SUCCESS,
     LOGOUT_STARTED,
@@ -47,6 +47,11 @@ export const loginStarted = (loginData) => ({
 export const loginSuccess = (currentUser) => ({
     type: LOGIN_SUCCESS,
     currentUser
+});
+
+export const loginFailed = (error) => ({
+    type: LOGIN_FAILED,
+    error
 });
 
 export const logoutStarted = () => ({

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {api} from './api';
-import {loginStarted, loginSuccess} from "./redux/actions";
+import {loginFailed, loginStarted, loginSuccess} from "./redux/actions";
 import {connect} from "react-redux";
 import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
@@ -10,9 +10,9 @@ import Typography from 'material-ui/Typography';
 class SignInScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
+        this.state = {};
     }
+
     handleChange = (event) => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -24,31 +24,31 @@ class SignInScreen extends Component {
     };
     doSignIn = async (event) => {
         this.props.doLoginCall({
-            login: this.state.login,
+            username: this.state.username,
             password: this.state.password
         });
     };
+
     render() {
         return (
             <div style={{textAlign: 'center'}}>
                 <Typography variant="display1" align={'center'}>
-                Sign In
+                    Sign In
                 </Typography>
                 <Grid container>
                     <Grid item xs={12}>
                         <TextField
-                            name={'login'}
-                            label={'Login'}
-                            value={this.state.login||""}
-                            onChange={this.handleChange}
-                        />
+                            name={'username'}
+                            label={'Email'}
+                            value={this.state.username || ""}
+                            onChange={this.handleChange}/>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
                             type={'password'}
                             name={'password'}
                             label={'Password'}
-                            value={this.state.password||""}
+                            value={this.state.password || ""}
                             onChange={this.handleChange}/>
                     </Grid>
                 </Grid>
@@ -58,6 +58,7 @@ class SignInScreen extends Component {
         );
     }
 }
+
 const mapStateToProps = state => {
     return {
         currentUser: state.currentUser
@@ -67,8 +68,12 @@ const mapDispatchToProps = dispatch => {
     return {
         doLoginCall: async (loginData) => {
             dispatch(loginStarted(loginData));
-            let json = await api.POST('login', loginData);
-            dispatch(loginSuccess(json));
+            try {
+                let json = await api.POST('login', loginData);
+                dispatch(loginSuccess(json));
+            } catch (e) {
+                dispatch(loginFailed(e.message));
+            }
         }
     }
 };

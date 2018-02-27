@@ -13,11 +13,10 @@ public class User implements UserDetails {
     private long id;
     private boolean enabled;
     private boolean deleted;
-    private String username;
+    private String email;
     private String password;
     private String firstName;
     private String lastName;
-    private String email;
     private String phone;
     private String role;
 
@@ -33,6 +32,11 @@ public class User implements UserDetails {
         this.email = email;
         this.phone = phone;
         this.role = role;
+    }
+
+    @Override
+    public String getUsername() {
+        return getEmail();
     }
 
     @JsonIgnore
@@ -83,14 +87,6 @@ public class User implements UserDetails {
     @JsonProperty
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     /**

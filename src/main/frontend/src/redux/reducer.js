@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 import {
     CURRENT_USER_LOAD_STARTED,
-    CURRENT_USER_LOAD_SUCCESS,
+    CURRENT_USER_LOAD_SUCCESS, LOGIN_FAILED,
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
     USER_LOAD_STARTED,
@@ -46,6 +46,8 @@ const currentUser = (state = initialState.currentUser, action) => {
         case CURRENT_USER_LOAD_SUCCESS:
         case LOGIN_SUCCESS:
             return action.currentUser;
+        case LOGIN_FAILED:
+            return state;
         default:
             return state;
     }

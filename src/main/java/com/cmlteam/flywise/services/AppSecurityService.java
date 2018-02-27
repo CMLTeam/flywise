@@ -25,9 +25,9 @@ public class AppSecurityService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void login(String login, String password) throws BadCredentialsException {
+    public void login(String username, String password) throws BadCredentialsException {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                login, password);
+                username, password);
 
         Authentication auth = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);

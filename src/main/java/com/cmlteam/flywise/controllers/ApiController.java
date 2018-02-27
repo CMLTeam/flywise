@@ -32,7 +32,7 @@ public class ApiController {
 
     @RequestMapping(value = "login", method = POST)
     public User login(@RequestBody LoginRequest loginRequest) {
-        appSecurityService.login(loginRequest.getLogin(), loginRequest.getPassword());
+        appSecurityService.login(loginRequest.getUsername(), loginRequest.getPassword());
         return appSecurityService.getCurrentUser();
     }
 

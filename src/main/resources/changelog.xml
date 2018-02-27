@@ -29,10 +29,10 @@
 	</changeSet>
 	<changeSet id="002-users-roles" author="vgubarkov">
 		<sql>
-			INSERT INTO user(username, password, role)
-			VALUES('admin', '$2a$10$feOMGZ60/NPAO2fsDw/By.tA03F.yaggfiqtd9cluPqDSr7y0bSrG', 'ROLE_ADMIN');
-			INSERT INTO user(username, password, role)
-			VALUES('user', '$2a$10$yOdxUyBD6.Wyl8usvs2kp.NHnIfx9O6sXsZH36YMQVHWtFFz9Qcwe', 'ROLE_USER');
+			INSERT INTO user(username, email, password, role)
+			VALUES('admin@test', 'admin@test', '$2a$10$feOMGZ60/NPAO2fsDw/By.tA03F.yaggfiqtd9cluPqDSr7y0bSrG', 'ROLE_ADMIN');
+			INSERT INTO user(username, email, password, role)
+			VALUES('user@test', 'user@test', '$2a$10$yOdxUyBD6.Wyl8usvs2kp.NHnIfx9O6sXsZH36YMQVHWtFFz9Qcwe', 'ROLE_USER');
 		</sql>
 	</changeSet>
 

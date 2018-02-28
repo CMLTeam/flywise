@@ -161,7 +161,7 @@
 				</executions>
 				<configuration>
 					<nodeVersion>v8.9.4</nodeVersion>
-					<yarnVersion>v1.3.2</yarnVersion>
+					<yarnVersion>v1.5.1</yarnVersion>
 					<workingDirectory>src/main/frontend/</workingDirectory>
 					<installDirectory>src/main/frontend/node_maven/</installDirectory>
 				</configuration>

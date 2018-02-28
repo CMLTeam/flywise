@@ -2,8 +2,8 @@ package com.cmlteam.flywise.services;
 
 import com.cmlteam.flywise.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,11 +17,14 @@ public class MailService {
     }
 
     public void sendEmailValidationMail(User user) {
-        SimpleMailMessage simpleMessage = new SimpleMailMessage();
-        simpleMessage.setTo(user.getEmail());
-        simpleMessage.setFrom("noreply@flywise.world");
-        simpleMessage.setSubject("FlyWise - Email Validation Request");
-        simpleMessage.setText("Hi, " + user.getId());
-        javaMailSender.send(simpleMessage);
+        javaMailSender.send(mimeMessage -> {
+            MimeMessageHelper m = new MimeMessageHelper(mimeMessage);
+            m.setTo(user.getEmail());
+            m.setFrom("noreply@flywise.world");
+            m.setSubject("FlyWise - Email Validation Request");
+            m.setText("<h1>Hi, " + user.getId() + "</h1>" +
+                    "Welcome to FlyWise!<br>" +
+                    "Please visit the link below to validate your email:<br>", true);
+        });
     }
 }

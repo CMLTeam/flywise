@@ -90,8 +90,8 @@ class App extends Component {
                         className={classes.root}
                         style={{position: "fixed", bottom:0, width:'100%'}}
                     >
-                        <BottomNavigationAction label="Users" icon={<UsersIcon/>} component={Link} to={'/users'}/>
                         <BottomNavigationAction label="Home" icon={<HomeIcon/>} component={Link} to={'/'}/>
+                        <BottomNavigationAction label="Users" icon={<UsersIcon/>} component={Link} to={'/users'}/>
                     </BottomNavigation>
                 </div>
             </Router>

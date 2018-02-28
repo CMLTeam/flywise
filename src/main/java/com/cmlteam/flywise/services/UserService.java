@@ -42,7 +42,7 @@ public class UserService implements UserDetailsService {
         return jdbcTemplate.queryForObject("select * from user where id=? and deleted=0", RowMappers.User, id);
     }
 
-    @PreAuthorize("hasRole('ADMIN') || #user.id == authentication.principal.id")
+    @PreAuthorize("hasRole('ADMIN') || #user.id == 0 || #user.id == authentication.principal.id")
     public void saveUser(User user) {
         String password = user.getPassword();
         if (user.getId() == 0) { // add

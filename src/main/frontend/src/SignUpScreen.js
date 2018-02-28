@@ -22,7 +22,7 @@ class SignUpScreen extends Component {
 
     doSignUp = async (event) => {
         this.props.doSignUpCall({
-            login: this.state.login,
+            email: this.state.email,
             password: this.state.password
         });
     };
@@ -32,6 +32,9 @@ class SignUpScreen extends Component {
             <div style={{textAlign: 'center'}}>
                 <Typography variant="display1" align={'center'}>
                     Sign Up
+                </Typography>
+                <Typography variant="subheading" align={'center'} color={'error'}>
+                    {this.props.error}
                 </Typography>
                 <Grid container>
                     <Grid item xs={12}>
@@ -65,22 +68,19 @@ class SignUpScreen extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        currentUser: state.currentUser
-    }
-};
-const mapDispatchToProps = dispatch => {
-    return {
-        doSignUpCall: async (data) => {
-            dispatch(signUpStarted(data.email));
-            try {
-                let json = await api.POST('signup', data);
-                dispatch(signUpSuccess(json));
-            } catch (e) {
-                dispatch(signUpFailed(e.message));
-            }
+const mapStateToProps = state => ({
+    currentUser: state.currentUser,
+    error: state.error,
+});
+const mapDispatchToProps = dispatch => ({
+    doSignUpCall: async (data) => {
+        dispatch(signUpStarted(data.email));
+        try {
+            let json = await api.POST('signup', data);
+            dispatch(signUpSuccess(json));
+        } catch (e) {
+            dispatch(signUpFailed(e.message));
         }
     }
-};
+});
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);

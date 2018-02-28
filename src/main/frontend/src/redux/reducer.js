@@ -6,6 +6,7 @@ import {
     SIGN_IN_FAILED,
     SIGN_IN_SUCCESS,
     SIGN_OUT_SUCCESS,
+    SIGN_UP_FAILED,
     SIGN_UP_SUCCESS,
     USER_LOAD_STARTED,
     USER_LOAD_SUCCESS,
@@ -60,6 +61,8 @@ const error = (state = initialState.error, action) => {
     switch (action.type) {
         case SIGN_IN_FAILED:
             return 'Invalid email or password';
+        case SIGN_UP_FAILED:
+            return action.error;
         case ROUTE_CHANGED:
             return initialState.error;
         default:

@@ -36,7 +36,7 @@ public class AppSecurityService {
     }
 
     public void signup(String email, String password) {
-        User user = new User(0, true, false, null, null, email, null, "ROLE_USER");
+        User user = new User(0, true, false, email, password, null, null, null, "ROLE_USER");
         userService.saveUser(user);
         login(email, password);
     }

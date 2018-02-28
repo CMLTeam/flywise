@@ -23,13 +23,14 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(long id, boolean enabled, boolean deleted, String firstName, String lastName, String email, String phone, String role) {
+    public User(long id, boolean enabled, boolean deleted, String email, String password, String firstName, String lastName, String phone, String role) {
         this.id = id;
         this.enabled = enabled;
         this.deleted = deleted;
+        this.email = email;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
         this.phone = phone;
         this.role = role;
     }

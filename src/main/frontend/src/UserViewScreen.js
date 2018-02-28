@@ -30,7 +30,7 @@ class UserViewScreen extends Component {
                 <div><b>Role: </b> {this.props.user.role}</div>
                 <div><b>Firstname: </b> {this.props.user.firstName}</div>
                 <div><b>Lastname: </b> {this.props.user.lastName}</div>
-                <div><b>Email: </b> {this.props.user.email}</div>
+                <div><b>Email: </b> {this.props.user.email} <i>({this.props.user.emailVerified ? 'verified' : 'not verified'})</i></div>
                 <div><b>Phone: </b> {this.props.user.phone}</div>
                 {
                     this.canEdit() && <Link to={`/user/${this.userId}/edit`}>Edit</Link>

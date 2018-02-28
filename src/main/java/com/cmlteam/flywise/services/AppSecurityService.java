@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AppSecurityService {
@@ -38,10 +41,23 @@ public class AppSecurityService {
     }
 
     public void signup(String email, String password) {
-        User user = new User(0, true, false, email, password, null, null, null, "ROLE_USER");
+        User user = new User(0, true, false, email, false, password, null, null, null, "ROLE_USER");
         userService.saveUser(user);
-        mailService.sendEmailValidationMail(user);
+        String token = UUID.randomUUID().toString();
+        jdbcTemplate.update("insert into user_email_verification (token,dateCreated,userID) values (?,?,?)",
+                token, new Date(), user.getId());
+        mailService.sendEmailVerificationMail(user, token);
         login(email, password);
+    }
+
+    public boolean verifyEmail(String token) {
+        // TODO validate dateCreated - only allow to verify during 1 day
+        List<Long> userId = jdbcTemplate.queryForList("select userId from user_email_verification where token=?", Long.class, token);
+        if (!userId.isEmpty()) {
+            jdbcTemplate.update("update user set emailVerified=1 where id=?", userId.get(0));
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -14,6 +14,7 @@ public class User implements UserDetails {
     private boolean enabled;
     private boolean deleted;
     private String email;
+    private boolean emailVerified;
     private String password;
     private String firstName;
     private String lastName;
@@ -23,11 +24,12 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(long id, boolean enabled, boolean deleted, String email, String password, String firstName, String lastName, String phone, String role) {
+    public User(long id, boolean enabled, boolean deleted, String email, boolean emailVerified, String password, String firstName, String lastName, String phone, String role) {
         this.id = id;
         this.enabled = enabled;
         this.deleted = deleted;
         this.email = email;
+        this.emailVerified = emailVerified;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -128,6 +130,14 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isEmailVerified() {
+        return emailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        this.emailVerified = emailVerified;
     }
 
     public String getPhone() {

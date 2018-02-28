@@ -2,6 +2,7 @@ package com.cmlteam.flywise.controllers;
 
 import com.cmlteam.flywise.model.LoginRequest;
 import com.cmlteam.flywise.model.ResultStatus;
+import com.cmlteam.flywise.model.SignUpRequest;
 import com.cmlteam.flywise.model.User;
 import com.cmlteam.flywise.services.AppSecurityService;
 import com.cmlteam.flywise.services.UserService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -30,8 +32,14 @@ public class ApiController {
         this.appSecurityService = appSecurityService;
     }
 
+    @RequestMapping(value = "signup", method = POST)
+    public User signup(@RequestBody @Valid SignUpRequest signUpRequest) {
+        appSecurityService.signup(signUpRequest.getEmail(), signUpRequest.getPassword());
+        return appSecurityService.getCurrentUser();
+    }
+
     @RequestMapping(value = "login", method = POST)
-    public User login(@RequestBody LoginRequest loginRequest) {
+    public User login(@RequestBody @Valid LoginRequest loginRequest) {
         appSecurityService.login(loginRequest.getUsername(), loginRequest.getPassword());
         return appSecurityService.getCurrentUser();
     }

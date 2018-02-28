@@ -17,12 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class AppSecurityService {
     private final AuthenticationManager authenticationManager;
+    private final UserService userService;
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public AppSecurityService(AuthenticationManager authenticationManager, JdbcTemplate jdbcTemplate) {
+    public AppSecurityService(AuthenticationManager authenticationManager, UserService userService, JdbcTemplate jdbcTemplate) {
         this.authenticationManager = authenticationManager;
         this.jdbcTemplate = jdbcTemplate;
+        this.userService = userService;
     }
 
     public void login(String username, String password) throws BadCredentialsException {
@@ -31,6 +33,12 @@ public class AppSecurityService {
 
         Authentication auth = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
+    }
+
+    public void signup(String email, String password) {
+        User user = new User(0, true, false, null, null, email, null, "ROLE_USER");
+        userService.saveUser(user);
+        login(email, password);
     }
 
     /**

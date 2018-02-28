@@ -1,12 +1,15 @@
 import {
     CURRENT_USER_LOAD_STARTED,
     CURRENT_USER_LOAD_SUCCESS,
-    LOGIN_FAILED,
-    LOGIN_STARTED,
-    LOGIN_SUCCESS,
-    LOGOUT_STARTED,
-    LOGOUT_SUCCESS,
     ROUTE_CHANGED,
+    SIGN_IN_FAILED,
+    SIGN_IN_STARTED,
+    SIGN_IN_SUCCESS,
+    SIGN_OUT_STARTED,
+    SIGN_OUT_SUCCESS,
+    SIGN_UP_FAILED,
+    SIGN_UP_STARTED,
+    SIGN_UP_SUCCESS,
     USER_LOAD_STARTED,
     USER_LOAD_SUCCESS,
     USERS_LOAD_STARTED,
@@ -41,27 +44,42 @@ export const currentUserLoadSuccess = (currentUser) => ({
     currentUser
 });
 
-export const loginStarted = (loginData) => ({
-    type: LOGIN_STARTED,
-    loginData
+export const signInStarted = (username) => ({
+    type: SIGN_IN_STARTED,
+    username
 });
 
-export const loginSuccess = (currentUser) => ({
-    type: LOGIN_SUCCESS,
+export const signInSuccess = (currentUser) => ({
+    type: SIGN_IN_SUCCESS,
     currentUser
 });
 
-export const loginFailed = (error) => ({
-    type: LOGIN_FAILED,
+export const signInFailed = (error) => ({
+    type: SIGN_IN_FAILED,
     error
 });
 
-export const logoutStarted = () => ({
-    type: LOGOUT_STARTED,
+export const signUpStarted = (email) => ({
+    type: SIGN_UP_STARTED,
+    email
 });
 
-export const logoutSuccess = () => ({
-    type: LOGOUT_SUCCESS,
+export const signUpSuccess = (currentUser) => ({
+    type: SIGN_UP_SUCCESS,
+    currentUser
+});
+
+export const signUpFailed = (error) => ({
+    type: SIGN_UP_FAILED,
+    error
+});
+
+export const signOutStarted = () => ({
+    type: SIGN_OUT_STARTED,
+});
+
+export const signOutSuccess = () => ({
+    type: SIGN_OUT_SUCCESS,
 });
 
 export const routeChanged = (location, action) => ({

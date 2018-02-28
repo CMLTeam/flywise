@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {api} from './api';
-import {loginStarted, loginSuccess} from "./redux/actions";
+import {signInStarted, signInSuccess, signUpFailed, signUpStarted, signUpSuccess} from "./redux/actions";
 import {connect} from "react-redux";
 import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
@@ -21,7 +21,7 @@ class SignUpScreen extends Component {
     };
 
     doSignUp = async (event) => {
-        this.props.doLoginCall({
+        this.props.doSignUpCall({
             login: this.state.login,
             password: this.state.password
         });
@@ -72,10 +72,14 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        doLoginCall: async (loginData) => {
-            dispatch(loginStarted(loginData));
-            let json = await api.POST('login', loginData);
-            dispatch(loginSuccess(json));
+        doSignUpCall: async (data) => {
+            dispatch(signUpStarted(data.email));
+            try {
+                let json = await api.POST('signup', data);
+                dispatch(signUpSuccess(json));
+            } catch (e) {
+                dispatch(signUpFailed(e.message));
+            }
         }
     }
 };

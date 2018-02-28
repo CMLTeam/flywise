@@ -2,10 +2,11 @@ import {combineReducers} from "redux";
 import {
     CURRENT_USER_LOAD_STARTED,
     CURRENT_USER_LOAD_SUCCESS,
-    LOGIN_FAILED,
-    LOGIN_SUCCESS,
-    LOGOUT_SUCCESS,
     ROUTE_CHANGED,
+    SIGN_IN_FAILED,
+    SIGN_IN_SUCCESS,
+    SIGN_OUT_SUCCESS,
+    SIGN_UP_SUCCESS,
     USER_LOAD_STARTED,
     USER_LOAD_SUCCESS,
     USERS_LOAD_STARTED,
@@ -44,10 +45,11 @@ const selectedUser = (state = initialState.selectedUser, action) => {
 const currentUser = (state = initialState.currentUser, action) => {
     switch (action.type) {
         case CURRENT_USER_LOAD_STARTED:
-        case LOGOUT_SUCCESS:
+        case SIGN_OUT_SUCCESS:
             return initialState.currentUser;
         case CURRENT_USER_LOAD_SUCCESS:
-        case LOGIN_SUCCESS:
+        case SIGN_IN_SUCCESS:
+        case SIGN_UP_SUCCESS:
             return action.currentUser;
         default:
             return state;
@@ -56,7 +58,7 @@ const currentUser = (state = initialState.currentUser, action) => {
 
 const error = (state = initialState.error, action) => {
     switch (action.type) {
-        case LOGIN_FAILED:
+        case SIGN_IN_FAILED:
             return 'Invalid email or password';
         case ROUTE_CHANGED:
             return initialState.error;

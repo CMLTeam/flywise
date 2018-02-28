@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 import {api} from "./api";
-import {currentUserLoadStarted, currentUserLoadSuccess, logoutStarted, logoutSuccess} from "./redux/actions";
+import {currentUserLoadStarted, currentUserLoadSuccess, signOutStarted, signOutSuccess} from "./redux/actions";
 import Button from 'material-ui/Button';
 
 class LoginBlock extends Component {
@@ -44,9 +44,9 @@ const mapDispatchToProps = dispatch => {
             dispatch(currentUserLoadSuccess(json));
         },
         doLogoutCall: async () => {
-            dispatch(logoutStarted());
+            dispatch(signOutStarted());
             let json = await api.POST('logout');
-            dispatch(logoutSuccess(json));
+            dispatch(signOutSuccess(json));
         }
     }
 };

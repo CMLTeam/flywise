@@ -19,12 +19,14 @@ public class AppSecurityService {
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
     private final JdbcTemplate jdbcTemplate;
+    private final MailService mailService;
 
     @Autowired
-    public AppSecurityService(AuthenticationManager authenticationManager, UserService userService, JdbcTemplate jdbcTemplate) {
+    public AppSecurityService(AuthenticationManager authenticationManager, UserService userService, JdbcTemplate jdbcTemplate, MailService mailService) {
         this.authenticationManager = authenticationManager;
         this.jdbcTemplate = jdbcTemplate;
         this.userService = userService;
+        this.mailService = mailService;
     }
 
     public void login(String username, String password) throws BadCredentialsException {
@@ -38,6 +40,7 @@ public class AppSecurityService {
     public void signup(String email, String password) {
         User user = new User(0, true, false, email, password, null, null, null, "ROLE_USER");
         userService.saveUser(user);
+        mailService.sendEmailValidationMail(user);
         login(email, password);
     }
 

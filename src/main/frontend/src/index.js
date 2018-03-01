@@ -9,7 +9,8 @@ import {createStore} from "redux";
 import {Provider} from 'react-redux'
 import {createMuiTheme, MuiThemeProvider} from 'material-ui/styles';
 
-const store = createStore(reducer);
+// const store = createStore(reducer);
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 const theme = createMuiTheme();
 
 ReactDOM.render(
